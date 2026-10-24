@@ -40,3 +40,4 @@ figures/**/*.png
 mlruns/
 *.pkl
 *.joblib
+catboost_info/

@@ -53,7 +53,13 @@ pip install -r requirements.txt
 python src/preprocess/preprocess.py        # P0: raw -> data/processed
 python src/eda/eda.py                      # P0: EDA figures -> figures/eda
 python src/features/build.py               # P1: data/processed -> data/features
-python src/models/classical.py --plant 1   # P2: baselines and classical models -> reports/phase2
+python src/models/classical.py --plant 1   # P2: baselines & classical models -> reports/phase2
+python src/models/classical.py --plant 2
+python src/models/tree_models.py --plant 1 # P3: gradient-boosted trees & ensemble -> reports/phase3
+python src/models/shap_analysis.py --plant 1 # P3: SHAP explainability analysis -> figures/phase3
+python src/models/tree_models.py --plant 2
+python src/models/shap_analysis.py --plant 2
+pytest -q                                  # Run automated test suite (22 tests)
 ```
 
 ## Phases
@@ -62,8 +68,8 @@ python src/models/classical.py --plant 1   # P2: baselines and classical models 
 |---|---|---|
 | P0 | Data foundation and EDA | Done |
 | P1 | Gap imputation and feature engineering | Done |
-| P2 | Baselines and classical models (persistence, seasonal naive, Holt-Winters, SARIMA, SARIMAX) | In progress |
-| P3 | Gradient boosting (XGBoost, LightGBM, CatBoost) and SHAP | Planned |
+| P2 | Baselines and classical models (persistence, seasonal naive, Holt-Winters, SARIMA, SARIMAX) | Done |
+| P3 | Gradient boosting (XGBoost, LightGBM, CatBoost), Ensembles, and SHAP | Done |
 | P4 | Deep learning (LSTM/GRU, TCN) and P10-P90 forecast bands | Planned |
 | P5 | Anomaly detection (STL residuals, inverter peer ratio, Isolation Forest) | Planned |
 | P6 | Cross-plant transfer test on Plant 2 | Planned |

@@ -1,0 +1,17 @@
+model,horizon,feature_set,uses_measured_weather,rmse_all,mae_all,rmse_daylight,mae_daylight,skill_vs_seasonal_naive
+XGBoost,1h,1h_no_weather,False,85.248,45.59,115.829,84.166,0.208
+LightGBM,1h,1h_no_weather,False,86.406,46.587,117.403,86.006,0.197
+CatBoost,1h,1h_no_weather,False,81.011,42.239,110.072,77.98,0.248
+Ensemble,1h,1h_no_weather,False,82.394,43.582,111.952,80.46,0.235
+XGBoost,1h,1h_weather,True,58.72,26.335,79.785,48.618,0.455
+LightGBM,1h,1h_weather,True,64.439,31.736,87.555,58.589,0.401
+CatBoost,1h,1h_weather,True,68.34,33.379,92.856,61.623,0.365
+Ensemble,1h,1h_weather,True,62.436,29.636,84.834,54.713,0.42
+XGBoost,24h,24h_no_weather,False,87.719,49.071,119.187,90.592,0.185
+LightGBM,24h,24h_no_weather,False,90.514,50.89,122.984,93.951,0.159
+CatBoost,24h,24h_no_weather,False,87.266,50.128,118.571,92.544,0.189
+Ensemble,24h,24h_no_weather,False,87.034,48.958,118.256,90.384,0.192
+XGBoost,24h,24h_weather,True,60.645,29.076,82.401,53.679,0.437
+LightGBM,24h,24h_weather,True,60.945,28.988,82.808,53.516,0.434
+CatBoost,24h,24h_weather,True,68.824,36.591,93.513,67.553,0.361
+Ensemble,24h,24h_weather,True,62.229,30.605,84.552,56.502,0.422
