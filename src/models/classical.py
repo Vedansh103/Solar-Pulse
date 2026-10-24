@@ -40,6 +40,11 @@ warnings.simplefilter("ignore", InterpolationWarning)
 warnings.filterwarnings("ignore", message=".*(frequency|Non-invertible|Non-stationary|Maximum Likelihood).*")
 
 ROOT = Path(__file__).resolve().parents[2]
+import sys
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+from src.evaluation.metrics import score, metrics_table
+
 TARGET = "ac_power_kw"
 EXOG = ["irradiation", "module_temperature"]
 S = 24  # daily season in hours
@@ -131,31 +136,6 @@ def sarimax(y, X, fit_end, eval_idx, order, sorder):
         day_ahead.append(full.get_prediction(start=origin, end=end, dynamic=True).predicted_mean)
     return one_step, pd.concat(day_ahead).loc[eval_idx], res
 
-
-# ---------------------------------------------------------------- metrics
-def score(actual, pred, mask):
-    e = (actual - pred)[mask]
-    return float(np.sqrt((e ** 2).mean())), float(e.abs().mean())
-
-
-def metrics_table(df, eval_idx, forecasts):
-    actual = df.loc[eval_idx, TARGET]
-    real = df.loc[eval_idx, "ac_imputed"] == 0
-    day = real & (df.loc[eval_idx, "is_daylight"] == 1)
-    rows = []
-    for name, (h1, h24) in forecasts.items():
-        for horizon, pred in (("1h", h1), ("24h", h24)):
-            if pred is None:
-                continue
-            pred = pred.clip(lower=0.0)
-            rmse, mae = score(actual, pred, real)
-            rmse_d, mae_d = score(actual, pred, day)
-            rows.append({"model": name, "horizon": horizon, "rmse_all": rmse, "mae_all": mae,
-                         "rmse_daylight": rmse_d, "mae_daylight": mae_d})
-    t = pd.DataFrame(rows)
-    ref = t[t["model"] == "Seasonal naive (t-24)"].set_index("horizon")
-    t["skill_vs_seasonal_naive"] = 1 - t["rmse_all"] / t["horizon"].map(ref["rmse_all"])
-    return t.round(3)
 
 
 # ---------------------------------------------------------------- diagnostics
