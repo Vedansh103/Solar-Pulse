@@ -29,7 +29,14 @@ Thumbs.db
 # Project Specific Exclusions:
 # 1. PDF files (guidelines, project details, documentation PDFs)
 *.pdf
+# ...except the team's project reference docs
+!docs/*.pdf
 
-# 2. EDA visual outputs
-output/eda_plots/
+# 2. Generated figures (rebuilt by the scripts)
+figures/**/*.png
 *.png
+
+# 3. Model artifacts and experiment tracking
+mlruns/
+*.pkl
+*.joblib
