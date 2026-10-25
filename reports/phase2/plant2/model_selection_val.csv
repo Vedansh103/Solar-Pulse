@@ -1,11 +1,11 @@
 model,setting,val_rmse_1h,val_rmse_24h,val_rmse_mean,seconds
-Holt-Winters,"{'trend': None, 'damped_trend': False}",91.852,103.691,97.772,0.1
-Holt-Winters,"{'trend': 'add', 'damped_trend': True}",94.077,98.206,96.142,0.2
-SARIMA,"((1, 0, 1), (0, 1, 1))",85.514,95.461,90.488,3.9
-SARIMA,"((2, 0, 1), (0, 1, 1))",86.565,95.476,91.02,11.0
-SARIMA,"((1, 0, 1), (1, 1, 1))",85.496,95.468,90.482,4.8
-SARIMA,"((2, 0, 0), (0, 1, 1))",85.959,95.461,90.71,3.9
-"SARIMAX (irradiation, module temp)","((1, 0, 1), (0, 1, 1))",69.152,62.532,65.842,6.0
-"SARIMAX (irradiation, module temp)","((2, 0, 1), (0, 1, 1))",70.186,62.608,66.397,16.3
-"SARIMAX (irradiation, module temp)","((1, 0, 1), (1, 1, 1))",69.152,62.569,65.86,9.3
-"SARIMAX (irradiation, module temp)","((2, 0, 0), (0, 1, 1))",69.508,62.569,66.038,6.4
+Holt-Winters,"{'trend': None, 'damped_trend': False}",93.369,99.351,96.36,0.5
+Holt-Winters,"{'trend': 'add', 'damped_trend': True}",93.419,99.62,96.52,0.4
+SARIMA,"((1, 0, 1), (0, 1, 1))",85.514,95.461,90.488,2.4
+SARIMA,"((2, 0, 1), (0, 1, 1))",86.565,95.476,91.02,6.7
+SARIMA,"((1, 0, 1), (1, 1, 1))",85.496,95.468,90.482,2.9
+SARIMA,"((2, 0, 0), (0, 1, 1))",85.959,95.461,90.71,2.3
+"SARIMAX (irradiation, module temp)","((1, 0, 1), (0, 1, 1))",69.152,62.532,65.842,3.7
+"SARIMAX (irradiation, module temp)","((2, 0, 1), (0, 1, 1))",70.186,62.608,66.397,9.6
+"SARIMAX (irradiation, module temp)","((1, 0, 1), (1, 1, 1))",69.152,62.569,65.86,5.6
+"SARIMAX (irradiation, module temp)","((2, 0, 0), (0, 1, 1))",69.508,62.569,66.038,3.8

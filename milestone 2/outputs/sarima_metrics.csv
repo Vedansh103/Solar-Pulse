@@ -1,0 +1,3 @@
+Model,Horizon,RMSE_All (kW),MAE_All (kW),RMSE_Daylight (kW),Skill_Score
+SARIMA,1h,87.52,48.122,118.913,0.34
+SARIMA,24h,112.294,62.289,152.578,0.153

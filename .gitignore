@@ -35,6 +35,7 @@ Thumbs.db
 # 2. Generated figures (rebuilt by the scripts)
 figures/**/*.png
 *.png
+!milestone 2/outputs/*.png
 
 # 3. Model artifacts and experiment tracking
 mlruns/
