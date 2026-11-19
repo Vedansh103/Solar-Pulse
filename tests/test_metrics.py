@@ -122,3 +122,4 @@ def test_regression_phase2_seasonal_naive(plant1_df):
 
     assert np.isclose(row["rmse_all"], 132.616, atol=0.001), f"Expected 132.616, got {row['rmse_all']}"
     assert np.isclose(row["mae_all"], 67.870, atol=0.001), f"Expected 67.870, got {row['mae_all']}"
+
