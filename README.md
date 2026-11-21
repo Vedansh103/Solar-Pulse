@@ -69,7 +69,7 @@ pytest -q                                  # Run automated test suite (22 tests)
 | P2 | Baselines and classical models (persistence, seasonal naive, Holt-Winters, SARIMA, SARIMAX) | Done |
 | P3 | Gradient boosting (XGBoost, LightGBM, CatBoost), Ensembles, and SHAP | Done |
 | P4 | Deep learning (LSTM/GRU, TCN) and P10-P90 forecast bands | Done |
-| P5 | Anomaly detection (STL residuals, inverter peer ratio, Isolation Forest) | Planned |
+| P5 | Anomaly detection (STL residuals, inverter peer ratio, Isolation Forest) | Done |
 | P6 | Cross-plant transfer test on Plant 2 | Planned |
 | P7 | Leaderboard and model registry | Planned |
 | P8 | LLM assistant with data tools | Planned |
