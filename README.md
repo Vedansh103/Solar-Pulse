@@ -34,15 +34,13 @@ src/
   models/       classical, tree, deep learning models (P2-P4)
   anomaly/      plant and inverter anomaly detection (P5)
   evaluation/   transfer test, leaderboard (P6-P7)
-  rag/          knowledge base ingestion and retrieval (P8)
-  llm/          LLM assistant and tools (P9-P10)
-  api/, app/    backend and dashboard (P11)
+  llm/          LLM assistant and tools (P8-P9)
+  api/, app/    backend and dashboard (P10)
 configs/        plant location and other settings
 reports/        metrics tables and written results per phase
 figures/        generated plots (not tracked, rebuilt by scripts)
 docs/           project reference PDFs and change log
 slides/         presentation decks
-kb/             RAG knowledge base store
 tests/
 ```
 
@@ -70,14 +68,13 @@ pytest -q                                  # Run automated test suite (22 tests)
 | P1 | Gap imputation and feature engineering | Done |
 | P2 | Baselines and classical models (persistence, seasonal naive, Holt-Winters, SARIMA, SARIMAX) | Done |
 | P3 | Gradient boosting (XGBoost, LightGBM, CatBoost), Ensembles, and SHAP | Done |
-| P4 | Deep learning (LSTM/GRU, TCN) and P10-P90 forecast bands | Planned |
+| P4 | Deep learning (LSTM/GRU, TCN) and P10-P90 forecast bands | Done |
 | P5 | Anomaly detection (STL residuals, inverter peer ratio, Isolation Forest) | Planned |
 | P6 | Cross-plant transfer test on Plant 2 | Planned |
 | P7 | Leaderboard and model registry | Planned |
-| P8 | RAG knowledge base | Planned |
-| P9 | LLM assistant with data tools | Planned |
-| P10 | LLM evaluation and safety | Planned |
-| P11 | Dashboard, API and deployment | Planned |
+| P8 | LLM assistant with data tools | Planned |
+| P9 | LLM evaluation and safety | Planned |
+| P10 | Dashboard, API and deployment | Planned |
 
 ## Caveats
 
