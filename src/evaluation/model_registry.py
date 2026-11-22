@@ -223,9 +223,9 @@ def predict_operational(
         missing = [c for c in feature_names if c not in df.columns]
         if missing and "ac_power_kw" in df.columns:
             df = add_extended_lags(df)
-        X = df[feature_names]
+        X = df[feature_names].astype(float)
     else:
-        X = df
+        X = df.astype(float)
 
     raw_preds = model.predict(X)
     return apply_night_zeroing(raw_preds, df)

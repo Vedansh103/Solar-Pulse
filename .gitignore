@@ -25,6 +25,8 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.tmp.*
+.env
+.env.local
 
 # Project Specific Exclusions:
 # 1. PDF files (guidelines, project details, documentation PDFs)
