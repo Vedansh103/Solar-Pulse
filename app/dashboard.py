@@ -51,7 +51,48 @@ def get_model(plant_id: int, horizon: str):
 
 
 def get_assistant():
-    return SolarOperationalAssistant()
+    import importlib
+    import src.llm.assistant
+    importlib.reload(src.llm.assistant)
+    return src.llm.assistant.SolarOperationalAssistant()
+
+
+def render_ai_explanation(assistant, context: dict) -> str:
+    """Safely renders the AI operational explanation.
+    Guarantees that an AI or network issue never prevents the rest of the dashboard from rendering.
+    """
+    try:
+        if hasattr(assistant, "explain_forecast_to_user"):
+            return assistant.explain_forecast_to_user(context)
+        import importlib
+        import src.llm.assistant
+        importlib.reload(src.llm.assistant)
+        new_asst = src.llm.assistant.SolarOperationalAssistant()
+        if hasattr(new_asst, "explain_forecast_to_user"):
+            return new_asst.explain_forecast_to_user(context)
+        return new_asst._fallback_forecast_explanation(context)
+    except Exception:
+        kw = context.get("predicted_power_kw", 0.0)
+        util = context.get("capacity_utilization_pct", 0.0)
+        weather = context.get("weather", "☀️ Sunny / Clear Sky")
+        eff_irr = context.get("effective_irrad_kw_m2", 0.5)
+        trans = context.get("optical_transmittance_pct", 100)
+        mod_t = context.get("module_temp_c", 45.0)
+        heat_loss = context.get("thermal_derating_pct", 8.0)
+        uptime = context.get("plant_uptime_pct", 99.0)
+        if util >= 60.0:
+            sun_txt = f"Strong direct sunlight ({eff_irr:.2f} kW/m²) under **{weather}** drives near-peak energy absorption."
+        elif util >= 25.0:
+            sun_txt = f"Moderate sunlight ({eff_irr:.2f} kW/m²) under **{weather}** ({trans}% transmission) delivers steady daytime generation."
+        else:
+            sun_txt = f"Dim sunlight ({eff_irr:.2f} kW/m²) under **{weather}** ({trans}% transmission) severely restricts solar output."
+
+        return (
+            f"- ☀️ **Sunlight & Sky:** {sun_txt}\n"
+            f"- 🌡️ **Temperature Impact:** Surface panel heat ({mod_t:.1f}°C) results in **-{heat_loss:.1f}% thermal derating loss**.\n"
+            f"- ⚡ **Equipment & Grid Status:** Plant equipment operates at **{uptime:.1f}% uptime** for grid injection.\n"
+            f"- 📊 **Bottom Line:** Current output is **{kw:,.1f} kW** ({util:.1f}% of nominal plant capacity)."
+        )
 
 
 def main():
@@ -67,14 +108,10 @@ def main():
         """
         <style>
         /* -------------------------------------------------------------
-           PREMIUM SOLAR THEME BACKGROUND & GLASSMORPHIC STYLING
+           PREMIUM DEEP SPACE-NAVY THEME & GLASSMORPHIC STYLING
            ------------------------------------------------------------- */
         [data-testid="stAppViewContainer"] {
-            background: 
-                radial-gradient(ellipse at 50% -5%, rgba(255, 170, 0, 0.22) 0%, rgba(255, 100, 0, 0.10) 35%, transparent 65%),
-                radial-gradient(ellipse at 85% 90%, rgba(0, 180, 255, 0.10) 0%, transparent 50%),
-                linear-gradient(180deg, #070a13 0%, #0c1120 50%, #060911 100%) !important;
-            background-attachment: fixed !important;
+            background: linear-gradient(180deg, #060a14 0%, #0b1222 50%, #050811 100%) !important;
             color: #f0f6fc;
         }
 
@@ -82,27 +119,139 @@ def main():
             background-color: transparent !important;
         }
 
+        /* Top-Right Glowing Animated Sun Widget */
+        .solar-sun-widget {
+            position: fixed;
+            top: 14px;
+            right: 28px;
+            width: 130px;
+            height: 130px;
+            z-index: 9999;
+            pointer-events: none;
+            user-select: none;
+            filter: drop-shadow(0 0 24px rgba(255, 179, 0, 0.88));
+        }
+
+        /* Fullscreen Diagonal Sunlight Beams Overlay */
+        .solar-sunlight-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 9997;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        /* Bottom-Left 3-4 Solar Panels Array Widget */
+        .solar-panels-widget {
+            position: fixed;
+            bottom: 18px;
+            left: 22px;
+            width: 330px;
+            height: 180px;
+            z-index: 9999;
+            pointer-events: none;
+            user-select: none;
+            filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.85));
+        }
+
+        /* Dynamic Visual Animations */
+        @keyframes spinRays {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes pulseCorona {
+            0%, 100% { transform: scale(1); opacity: 0.82; }
+            50% { transform: scale(1.16); opacity: 1; }
+        }
+        @keyframes beamPulse1 {
+            0%, 100% { opacity: 0.40; }
+            50% { opacity: 0.80; }
+        }
+        @keyframes beamPulse2 {
+            0%, 100% { opacity: 0.25; }
+            50% { opacity: 0.65; }
+        }
+        @keyframes sheenSweep {
+            0% { opacity: 0.25; transform: translateY(-30%) scaleY(0.7); }
+            50% { opacity: 0.95; transform: translateY(0%) scaleY(1); }
+            100% { opacity: 0.25; transform: translateY(30%) scaleY(0.7); }
+        }
+        @keyframes sparkle {
+            0%, 100% { opacity: 0.15; transform: scale(0.6); }
+            50% { opacity: 1; transform: scale(1.4); }
+        }
+
+        .sun-rays {
+            animation: spinRays 28s linear infinite;
+            transform-origin: 60px 60px;
+        }
+        .sun-corona {
+            animation: pulseCorona 4.2s ease-in-out infinite;
+            transform-origin: 60px 60px;
+        }
+        .beam-pulse-1 {
+            animation: beamPulse1 4.5s ease-in-out infinite;
+        }
+        .beam-pulse-2 {
+            animation: beamPulse2 3.8s ease-in-out infinite 1s;
+        }
+        .beam-pulse-3 {
+            animation: beamPulse1 5.2s ease-in-out infinite 2s;
+        }
+        .sheen-anim-1 {
+            animation: sheenSweep 3.2s ease-in-out infinite;
+        }
+        .sheen-anim-2 {
+            animation: sheenSweep 3.8s ease-in-out infinite 0.6s;
+        }
+        .sheen-anim-3 {
+            animation: sheenSweep 4.2s ease-in-out infinite 1.2s;
+        }
+        .sheen-anim-4 {
+            animation: sheenSweep 4.6s ease-in-out infinite 1.8s;
+        }
+        .glint-1 {
+            animation: sparkle 2.2s ease-in-out infinite;
+            transform-origin: 115px 110px;
+        }
+        .glint-2 {
+            animation: sparkle 2.8s ease-in-out infinite 0.7s;
+            transform-origin: 210px 105px;
+        }
+        .glint-3 {
+            animation: sparkle 1.9s ease-in-out infinite 1.3s;
+            transform-origin: 160px 80px;
+        }
+        .glint-4 {
+            animation: sparkle 2.5s ease-in-out infinite 1.9s;
+            transform-origin: 70px 140px;
+        }
+
         /* Glassmorphic Sidebar Styling */
         [data-testid="stSidebar"] {
-            background: linear-gradient(180deg, rgba(13, 17, 26, 0.94) 0%, rgba(8, 12, 19, 0.97) 100%) !important;
+            background: linear-gradient(180deg, rgba(13, 17, 26, 0.95) 0%, rgba(8, 12, 19, 0.98) 100%) !important;
             backdrop-filter: blur(14px);
             border-right: 1px solid rgba(255, 180, 0, 0.16) !important;
+            z-index: 3;
         }
 
         /* Metric Cards with Glowing 3D Glass Depth */
         [data-testid="stMetric"] {
-            background: linear-gradient(145deg, rgba(22, 31, 48, 0.85), rgba(15, 22, 36, 0.90)) !important;
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.09) !important;
+            background: linear-gradient(145deg, rgba(16, 25, 42, 0.88), rgba(11, 18, 32, 0.94)) !important;
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 215, 64, 0.12) !important;
             border-radius: 12px;
             padding: 14px 18px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
             transition: all 0.25s ease-in-out;
         }
         [data-testid="stMetric"]:hover {
             transform: translateY(-3px);
-            border-color: rgba(79, 172, 254, 0.5) !important;
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55), 0 0 16px rgba(79, 172, 254, 0.3) !important;
+            border-color: rgba(255, 195, 0, 0.45) !important;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.65), 0 0 18px rgba(255, 195, 0, 0.22) !important;
         }
         [data-testid="stMetricValue"] {
             font-size: 1.85rem !important;
@@ -156,6 +305,152 @@ def main():
             box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
         }
         </style>
+
+        <!-- 1. TOP-RIGHT RADIANT GLOWING SUN WIDGET -->
+        <div class="solar-sun-widget">
+            <svg viewBox="0 0 120 120" width="100%" height="100%">
+                <defs>
+                    <radialGradient id="sunCoreGrad" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="#ffffff"/>
+                        <stop offset="35%" stop-color="#fff59d"/>
+                        <stop offset="68%" stop-color="#ffa726"/>
+                        <stop offset="100%" stop-color="#ff6d00"/>
+                    </radialGradient>
+                    <radialGradient id="sunCoronaGrad" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="#ffe082" stop-opacity="0.85"/>
+                        <stop offset="45%" stop-color="#ffb74d" stop-opacity="0.45"/>
+                        <stop offset="85%" stop-color="#ff9100" stop-opacity="0.15"/>
+                        <stop offset="100%" stop-color="#ff6d00" stop-opacity="0"/>
+                    </radialGradient>
+                    <filter id="sunCoreGlow" x="-50%" y="-50%" width="200%" height="200%">
+                        <feGaussianBlur stdDeviation="5" result="blur"/>
+                        <feMerge>
+                            <feMergeNode in="blur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
+                </defs>
+                <!-- Pulsing outer corona -->
+                <circle cx="60" cy="60" r="48" fill="url(#sunCoronaGrad)" class="sun-corona"/>
+                <!-- 12 Rotating Solar Rays -->
+                <g class="sun-rays">
+                    <line x1="60" y1="12" x2="60" y2="24" stroke="#ffca28" stroke-width="3" stroke-linecap="round"/>
+                    <line x1="60" y1="96" x2="60" y2="108" stroke="#ffca28" stroke-width="3" stroke-linecap="round"/>
+                    <line x1="12" y1="60" x2="24" y2="60" stroke="#ffca28" stroke-width="3" stroke-linecap="round"/>
+                    <line x1="96" y1="60" x2="108" y2="60" stroke="#ffca28" stroke-width="3" stroke-linecap="round"/>
+                    <line x1="26" y1="26" x2="35" y2="35" stroke="#ffa726" stroke-width="2.5" stroke-linecap="round"/>
+                    <line x1="85" y1="85" x2="94" y2="94" stroke="#ffa726" stroke-width="2.5" stroke-linecap="round"/>
+                    <line x1="26" y1="94" x2="35" y2="85" stroke="#ffa726" stroke-width="2.5" stroke-linecap="round"/>
+                    <line x1="85" y1="35" x2="94" y2="26" stroke="#ffa726" stroke-width="2.5" stroke-linecap="round"/>
+                    <polygon points="60,6 63,16 57,16" fill="#ffd54f"/>
+                    <polygon points="60,114 63,104 57,104" fill="#ffd54f"/>
+                    <polygon points="6,60 16,63 16,57" fill="#ffd54f"/>
+                    <polygon points="114,60 104,63 104,57" fill="#ffd54f"/>
+                </g>
+                <!-- Central Core Sun Disk -->
+                <circle cx="60" cy="60" r="26" fill="url(#sunCoreGrad)" filter="url(#sunCoreGlow)"/>
+                <circle cx="60" cy="60" r="13" fill="#ffffff" opacity="0.95"/>
+            </svg>
+        </div>
+
+        <!-- 2. FULLSCREEN DIAGONAL SUNLIGHT BEAMS OVERLAY (STREAMING FROM SUN DOWN TO PANELS) -->
+        <div class="solar-sunlight-overlay">
+            <svg viewBox="0 0 1920 1080" width="100%" height="100%" preserveAspectRatio="none">
+                <defs>
+                    <linearGradient id="beamShaft1" x1="95%" y1="5%" x2="12%" y2="92%">
+                        <stop offset="0%" stop-color="#fff9c4" stop-opacity="0.55"/>
+                        <stop offset="25%" stop-color="#ffe082" stop-opacity="0.32"/>
+                        <stop offset="65%" stop-color="#ffd54f" stop-opacity="0.16"/>
+                        <stop offset="90%" stop-color="#ffb300" stop-opacity="0.06"/>
+                        <stop offset="100%" stop-color="#ffb300" stop-opacity="0"/>
+                    </linearGradient>
+                    <linearGradient id="beamShaft2" x1="93%" y1="4%" x2="18%" y2="88%">
+                        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.45"/>
+                        <stop offset="35%" stop-color="#fff59d" stop-opacity="0.22"/>
+                        <stop offset="75%" stop-color="#ffe082" stop-opacity="0.08"/>
+                        <stop offset="100%" stop-color="#ffca28" stop-opacity="0"/>
+                    </linearGradient>
+                    <linearGradient id="beamShaft3" x1="96%" y1="6%" x2="6%" y2="96%">
+                        <stop offset="0%" stop-color="#ffe57f" stop-opacity="0.38"/>
+                        <stop offset="45%" stop-color="#ffd740" stop-opacity="0.14"/>
+                        <stop offset="100%" stop-color="#ffab00" stop-opacity="0"/>
+                    </linearGradient>
+                </defs>
+                <polygon points="1840,40 1880,50 420,1080 120,1080" fill="url(#beamShaft1)" class="beam-pulse-1"/>
+                <polygon points="1820,30 1860,40 280,1080 0,980" fill="url(#beamShaft2)" class="beam-pulse-2"/>
+                <polygon points="1850,55 1870,60 550,1080 320,1080" fill="url(#beamShaft3)" class="beam-pulse-3"/>
+            </svg>
+        </div>
+
+        <!-- 3. BOTTOM-LEFT 4 SOLAR PANELS WITH SUNLIGHT FALLING EFFECT -->
+        <div class="solar-panels-widget">
+            <svg viewBox="0 0 340 190" width="100%" height="100%">
+                <defs>
+                    <linearGradient id="pvCellGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#154360"/>
+                        <stop offset="45%" stop-color="#0e2f44"/>
+                        <stop offset="80%" stop-color="#071b28"/>
+                        <stop offset="100%" stop-color="#030d14"/>
+                    </linearGradient>
+                    <linearGradient id="sunlightFallingSheen" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
+                        <stop offset="35%" stop-color="#ffffff" stop-opacity="0.2"/>
+                        <stop offset="50%" stop-color="#fff59d" stop-opacity="0.85"/>
+                        <stop offset="65%" stop-color="#00e5ff" stop-opacity="0.6"/>
+                        <stop offset="100%" stop-color="#00e5ff" stop-opacity="0"/>
+                    </linearGradient>
+                    <linearGradient id="frameGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#94a3b8"/>
+                        <stop offset="50%" stop-color="#64748b"/>
+                        <stop offset="100%" stop-color="#334155"/>
+                    </linearGradient>
+                </defs>
+
+                <!-- Sturdy aluminum mounting legs -->
+                <line x1="225" y1="55" x2="225" y2="90" stroke="url(#frameGrad)" stroke-width="3.5" stroke-linecap="round"/>
+                <line x1="305" y1="35" x2="305" y2="70" stroke="url(#frameGrad)" stroke-width="3.5" stroke-linecap="round"/>
+                <line x1="100" y1="75" x2="100" y2="115" stroke="url(#frameGrad)" stroke-width="3.5" stroke-linecap="round"/>
+                <line x1="180" y1="55" x2="180" y2="95" stroke="url(#frameGrad)" stroke-width="3.5" stroke-linecap="round"/>
+                <line x1="195" y1="125" x2="195" y2="170" stroke="url(#frameGrad)" stroke-width="4" stroke-linecap="round"/>
+                <line x1="285" y1="100" x2="285" y2="145" stroke="url(#frameGrad)" stroke-width="4" stroke-linecap="round"/>
+                <line x1="60" y1="140" x2="60" y2="185" stroke="url(#frameGrad)" stroke-width="4.5" stroke-linecap="round"/>
+                <line x1="150" y1="115" x2="150" y2="160" stroke="url(#frameGrad)" stroke-width="4.5" stroke-linecap="round"/>
+
+                <!-- PANEL 4 (Rear Right) -->
+                <polygon points="195,40 285,15 320,50 230,75" fill="#091829" stroke="#64748b" stroke-width="1.8"/>
+                <polygon points="199,42 282,18 316,50 233,73" fill="url(#pvCellGrad)"/>
+                <line x1="240" y1="30" x2="274" y2="62" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+                <line x1="216" y1="46" x2="300" y2="33" stroke="rgba(0,229,255,0.3)" stroke-width="1"/>
+                <polygon points="199,42 282,18 316,50 233,73" fill="url(#sunlightFallingSheen)" class="sheen-anim-4"/>
+
+                <!-- PANEL 3 (Rear Left) -->
+                <polygon points="70,60 160,35 195,70 105,95" fill="#091829" stroke="#64748b" stroke-width="1.8"/>
+                <polygon points="74,62 157,38 191,70 108,93" fill="url(#pvCellGrad)"/>
+                <line x1="115" y1="50" x2="149" y2="82" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+                <line x1="91" y1="66" x2="175" y2="53" stroke="rgba(0,229,255,0.3)" stroke-width="1"/>
+                <polygon points="74,62 157,38 191,70 108,93" fill="url(#sunlightFallingSheen)" class="sheen-anim-3"/>
+
+                <!-- PANEL 2 (Front Right) -->
+                <polygon points="160,105 260,75 300,120 200,150" fill="#071524" stroke="#94a3b8" stroke-width="2.2"/>
+                <polygon points="165,108 256,79 295,119 204,147" fill="url(#pvCellGrad)"/>
+                <line x1="210" y1="94" x2="250" y2="135" stroke="rgba(255,255,255,0.3)" stroke-width="1.2"/>
+                <line x1="184" y1="114" x2="278" y2="98" stroke="rgba(0,229,255,0.4)" stroke-width="1.2"/>
+                <polygon points="165,108 256,79 295,119 204,147" fill="url(#sunlightFallingSheen)" class="sheen-anim-2"/>
+
+                <!-- PANEL 1 (Front Left Foreground Table) -->
+                <polygon points="20,120 130,85 175,135 65,170" fill="#05101c" stroke="#cbd5e1" stroke-width="2.5"/>
+                <polygon points="26,124 125,90 169,134 70,167" fill="url(#pvCellGrad)"/>
+                <line x1="75" y1="107" x2="119" y2="152" stroke="rgba(255,255,255,0.35)" stroke-width="1.4"/>
+                <line x1="48" y1="129" x2="147" y2="112" stroke="rgba(0,229,255,0.45)" stroke-width="1.4"/>
+                <polygon points="26,124 125,90 169,134 70,167" fill="url(#sunlightFallingSheen)" class="sheen-anim-1"/>
+
+                <!-- Sparkling Sunlight Reflections on Panel Glass -->
+                <circle cx="115" cy="110" r="3.5" fill="#ffffff" class="glint-1"/>
+                <circle cx="210" cy="105" r="3" fill="#fff59d" class="glint-2"/>
+                <circle cx="160" cy="80" r="2.5" fill="#ffffff" class="glint-3"/>
+                <circle cx="70" cy="140" r="3" fill="#00e5ff" class="glint-4"/>
+            </svg>
+        </div>
         """,
         unsafe_allow_html=True,
     )
@@ -339,14 +634,15 @@ def main():
         )
 
     # -----------------------------------------------------------------------------
-    # TAB LAYOUT
+    # AI ASSISTANT & TAB LAYOUT
     # -----------------------------------------------------------------------------
-    tab_forecast, tab_inverters, tab_copilot, tab_leaderboard = st.tabs(
+    assistant = get_assistant()
+
+    tab_forecast, tab_inverters, tab_copilot = st.tabs(
         [
             "📈 Solar Power Forecasting",
             "⚡ 22-Inverter Visual Health Grid",
             "🤖 AI Operational Advisor",
-            "🏆 Model Leaderboard & Specs",
         ]
     )
 
@@ -401,7 +697,13 @@ def main():
             with c2:
                 if actual_kw is not None:
                     error_kw = pred_kw - actual_kw
-                    st.metric("Ground Truth Actual AC Power", f"{actual_kw:,.1f} kW", delta=f"{error_kw:+.1f} kW Error", delta_color="inverse")
+                    st.metric(
+                        "Historical Benchmark (June 12, 12:00 PM)",
+                        f"{actual_kw:,.1f} kW",
+                        delta=f"{error_kw:+.1f} kW vs Baseline",
+                        delta_color="inverse",
+                        help="Actual physical sensor measurement recorded on June 12, 2020 at 12:00 PM (Solar Noon reference baseline).",
+                    )
                 else:
                     st.metric(
                         "Effective Irradiation",
@@ -434,6 +736,48 @@ def main():
             ))
             fig_g.update_layout(height=280, margin=dict(l=20, r=20, t=40, b=20))
             st.plotly_chart(fig_g, use_container_width=True)
+
+            # -------------------------------------------------------------
+            # AI OPERATIONAL EXPLANATION (1-HOUR AHEAD FORECAST)
+            # -------------------------------------------------------------
+            st.markdown("---")
+            capacity_kw = 1200.0 if active_plant == 1 else 1000.0
+            utilization_pct = min(100.0, max(0.0, (pred_kw / capacity_kw) * 100.0))
+
+            col_ai_txt, col_ai_badge = st.columns([3, 1])
+            with col_ai_txt:
+                st.markdown("#### 🤖 AI Operational Explanation (Why is generation High / Normal / Low?)")
+                st.caption("Plain-language breakdown of generation drivers grounded in verified physics (Weather, Heat Loss, Equipment Uptime).")
+
+            with col_ai_badge:
+                if utilization_pct >= 60.0:
+                    st.success("🟢 HIGH GENERATION")
+                elif utilization_pct >= 25.0:
+                    st.warning("🟡 NORMAL / MODERATE")
+                else:
+                    st.error("🔴 LOW GENERATION")
+
+            explanation_ctx_1h = {
+                "plant": active_plant,
+                "horizon": "1h",
+                "weather": active_weather,
+                "input_irrad_kw_m2": round(float(active_irrad), 3),
+                "effective_irrad_kw_m2": round(float(effective_irrad), 3),
+                "optical_transmittance_pct": round(weather_meta["attenuation"] * 100.0, 1),
+                "ambient_temp_c": round(float(active_amb_temp), 1),
+                "module_temp_c": round(float(active_mod_temp), 1),
+                "thermal_rise_delta_t_c": round(float(delta_t), 1),
+                "thermal_derating_pct": round(float(thermal_derating_pct), 1),
+                "clearness_index": round(float(sample_dict.get("clearness_index", 0.5)), 3),
+                "predicted_power_kw": round(float(pred_kw), 1),
+                "nominal_capacity_kw": capacity_kw,
+                "capacity_utilization_pct": round(utilization_pct, 1),
+                "plant_uptime_pct": round(float(health_score_avg), 1),
+            }
+
+            with st.spinner("Analyzing verified operational physics with Gemini AI..."):
+                ai_exp_1h = render_ai_explanation(assistant, explanation_ctx_1h)
+            st.info(ai_exp_1h)
 
         else:
             # 24-Hour Day-Ahead Scheduling Horizon
@@ -533,6 +877,50 @@ def main():
                 use_container_width=True,
                 height=260,
             )
+
+            # -------------------------------------------------------------
+            # AI OPERATIONAL EXPLANATION (24-HOUR DAY-AHEAD FORECAST)
+            # -------------------------------------------------------------
+            st.markdown("---")
+            peak_24h_kw = float(df_24h_window["predicted_kw"].max())
+            total_24h_kwh = float(df_24h_window["predicted_kw"].sum())
+            capacity_kw = 1200.0 if active_plant == 1 else 1000.0
+            utilization_24h_pct = min(100.0, max(0.0, (peak_24h_kw / capacity_kw) * 100.0))
+
+            col_ai_txt_24, col_ai_badge_24 = st.columns([3, 1])
+            with col_ai_txt_24:
+                st.markdown("#### 🤖 AI Operational Explanation (Day-Ahead Outlook)")
+                st.caption("Plain-language breakdown of peak midday generation and full-day energy dispatch.")
+
+            with col_ai_badge_24:
+                if utilization_24h_pct >= 60.0:
+                    st.success("🟢 HIGH GENERATION")
+                elif utilization_24h_pct >= 25.0:
+                    st.warning("🟡 NORMAL / MODERATE")
+                else:
+                    st.error("🔴 LOW GENERATION")
+
+            explanation_ctx_24h = {
+                "plant": active_plant,
+                "horizon": "24h",
+                "weather": active_weather,
+                "input_irrad_kw_m2": round(float(active_irrad), 3),
+                "effective_irrad_kw_m2": round(float(active_irrad * weather_meta["attenuation"]), 3),
+                "optical_transmittance_pct": round(weather_meta["attenuation"] * 100.0, 1),
+                "ambient_temp_c": round(float(active_amb_temp), 1),
+                "module_temp_c": round(float(active_mod_temp), 1),
+                "thermal_rise_delta_t_c": round(float(delta_t), 1),
+                "thermal_derating_pct": round(float(thermal_derating_pct), 1),
+                "predicted_power_kw": round(peak_24h_kw, 1),
+                "total_daily_energy_kwh": round(total_24h_kwh, 1),
+                "nominal_capacity_kw": capacity_kw,
+                "capacity_utilization_pct": round(utilization_24h_pct, 1),
+                "plant_uptime_pct": round(float(health_score_avg), 1),
+            }
+
+            with st.spinner("Analyzing day-ahead operational outlook with Gemini AI..."):
+                ai_exp_24h = render_ai_explanation(assistant, explanation_ctx_24h)
+            st.info(ai_exp_24h)
 
         # -------------------------------------------------------------------------
         # 3D INTERACTIVE SOLAR YIELD & DIURNAL POWER SURFACE
@@ -818,150 +1206,6 @@ def main():
                 st.markdown(response)
             st.session_state.chat_history.append({"role": "assistant", "content": response})
             st.rerun()
-
-    # -----------------------------------------------------------------------------
-    # TAB 4: MODEL LEADERBOARD & SPECS
-    # -----------------------------------------------------------------------------
-    with tab_leaderboard:
-        st.subheader("🏆 Consolidated Model Tournament Leaderboard")
-        st.caption("Verified empirical benchmarks across 65 models evaluated in Phase 7 across Classical TS, GBDT (LightGBM, XGBoost, CatBoost), and Recurrent Deep Learning.")
-
-        lead_path = ROOT / "reports/phase7/master_leaderboard.csv"
-        if not lead_path.exists():
-            lead_path = ROOT / "reports/phase7/operational_leaderboard_1h.csv"
-
-        if lead_path.exists():
-            df_lead = pd.read_csv(lead_path)
-
-            # Filter options
-            c_flt1, c_flt2 = st.columns(2)
-            with c_flt1:
-                selected_plant_filter = st.selectbox(
-                    "Filter Tournament Leaderboard by Plant / Scope:",
-                    options=["All Plants", "Plant 1", "Plant 2", "Cross-Plant Transfer"],
-                )
-            with c_flt2:
-                selected_horizon_filter = st.selectbox(
-                    "Filter Tournament Leaderboard by Horizon:",
-                    options=["All Horizons", "1h Ahead", "24h Day-Ahead"],
-                )
-
-            filtered_lead = df_lead.copy()
-            if selected_plant_filter == "Plant 1":
-                filtered_lead = filtered_lead[filtered_lead["plant"] == "Plant 1"]
-            elif selected_plant_filter == "Plant 2":
-                filtered_lead = filtered_lead[filtered_lead["plant"] == "Plant 2"]
-            elif selected_plant_filter == "Cross-Plant Transfer":
-                filtered_lead = filtered_lead[filtered_lead["plant"].str.contains("Transfer")]
-
-            if selected_horizon_filter == "1h Ahead":
-                filtered_lead = filtered_lead[filtered_lead["horizon"] == "1h"]
-            elif selected_horizon_filter == "24h Day-Ahead":
-                filtered_lead = filtered_lead[filtered_lead["horizon"] == "24h"]
-
-            # Clean and format dataframe
-            display_lead = filtered_lead[[
-                "rank_in_group", "model_name", "model_family", "horizon", "plant", "uses_weather",
-                "rmse_all", "mae_all", "skill_score"
-            ]].copy()
-            display_lead.columns = [
-                "Rank", "Model Name", "Architecture", "Horizon", "Plant Scope", "Weather Included",
-                "Test RMSE (kW)", "Test MAE (kW)", "Skill Score vs Naive"
-            ]
-
-            st.dataframe(
-                display_lead.style.format({
-                    "Test RMSE (kW)": "{:.2f}",
-                    "Test MAE (kW)": "{:.2f}",
-                    "Skill Score vs Naive": "{:.3f}",
-                }).background_gradient(subset=["Skill Score vs Naive"], cmap="Greens"),
-                use_container_width=True,
-                height=320,
-            )
-
-        st.markdown("---")
-        st.subheader("📋 Production Champion Model Specifications")
-        st.caption("Official Model Card metadata and operational guardrails registered in `models/registry/`.")
-
-        card_path = ROOT / "models/registry/model_card.json"
-        if card_path.exists():
-            import json
-            card = json.loads(card_path.read_text(encoding="utf-8"))
-
-            # Top KPI metrics
-            m1, m2, m3, m4 = st.columns(4)
-            with m1:
-                st.metric("Primary Architecture", card.get("primary_champion_architecture", "LightGBM"))
-            with m2:
-                st.metric("Companion Architecture", card.get("probabilistic_companion_architecture", "Quantile LSTM"))
-            with m3:
-                st.metric("Registry Version", f"v{card.get('version', '1.0.0')} (Production Ready)")
-            with m4:
-                st.metric("Target Variable", "AC Power Output (kW)")
-
-            # Guardrails & Rules
-            post = card.get("physical_postprocessing", {})
-            st.markdown("#### 🛡️ Operational Guardrails & Constraints")
-            g1, g2, g3 = st.columns(3)
-            with g1:
-                st.info(f"**Night Zeroing Rule:**\n\n`{post.get('night_definition', 'hour < 6 or hour >= 19')}`")
-            with g2:
-                st.info(f"**Lower Bound Clip:**\n\n`ac_power_kw >= {post.get('lower_bound_clip', 0.0)} kW` (Zero negative generation)")
-            with g3:
-                st.info(f"**Cross-Plant Transfer Ratio:**\n\n`{card.get('capacity_scaling_ratio_p1_to_p2', 0.802)}` (Plant 1 → Plant 2)")
-
-            # Registered Champion Specs by Horizon
-            st.markdown("#### ⚡ Registered Model Artifacts by Plant & Horizon")
-            t_p1_1h, t_p1_24h, t_p2_1h, t_p2_24h = st.tabs([
-                "Plant 1 (1-Hour Ahead)",
-                "Plant 1 (24-Hour Day-Ahead)",
-                "Plant 2 (1-Hour Ahead)",
-                "Plant 2 (24-Hour Day-Ahead)",
-            ])
-
-            models_data = card.get("registered_models", {})
-
-            for tab_obj, key_name in [
-                (t_p1_1h, "plant1_1h"),
-                (t_p1_24h, "plant1_24h"),
-                (t_p2_1h, "plant2_1h"),
-                (t_p2_24h, "plant2_24h"),
-            ]:
-                with tab_obj:
-                    m_info = models_data.get(key_name, {})
-                    if m_info:
-                        s1, s2, s3, s4 = st.columns(4)
-                        with s1:
-                            st.metric("Test RMSE", f"{m_info.get('test_rmse_kw', 0):.2f} kW")
-                        with s2:
-                            st.metric("Test MAE", f"{m_info.get('test_mae_kw', 0):.2f} kW")
-                        with s3:
-                            st.metric("Skill Score", f"{m_info.get('skill_score', 0):.3f}")
-                        with s4:
-                            st.metric("Training Samples", f"{m_info.get('training_samples', 0)}")
-
-                        st.markdown(f"**Artifact File:** `{m_info.get('artifact_file')}` | **Features ({m_info.get('num_features')}):**")
-                        features = m_info.get("feature_names", [])
-                        st.markdown(" ".join([f"`{f}`" for f in features]))
-
-                        st.markdown("**Champion Hyperparameters:**")
-                        hp = m_info.get("hyperparameters", {})
-                        hp_cols = st.columns(4)
-                        hp_items = [
-                            ("n_estimators", hp.get("n_estimators")),
-                            ("max_depth", hp.get("max_depth")),
-                            ("learning_rate", hp.get("learning_rate")),
-                            ("num_leaves", hp.get("num_leaves")),
-                            ("reg_alpha", hp.get("reg_alpha")),
-                            ("reg_lambda", hp.get("reg_lambda")),
-                            ("subsample", hp.get("subsample")),
-                            ("colsample_bytree", hp.get("colsample_bytree")),
-                        ]
-                        for i, (k, v) in enumerate(hp_items):
-                            with hp_cols[i % 4]:
-                                st.caption(f"**{k}:** `{v}`")
-
-
 
 
 if __name__ == "__main__":

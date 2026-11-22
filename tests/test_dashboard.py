@@ -50,3 +50,34 @@ def test_dashboard_model_inference():
     assert len(preds) == 10
     assert (preds >= 0.0).all()
 
+
+def test_ai_forecast_explanation():
+    """Verify that AI forecast explanation generates structured, grounded plain-language points."""
+    from src.llm.assistant import SolarOperationalAssistant
+
+    assistant = SolarOperationalAssistant(use_remote_llm=False)
+    test_context = {
+        "plant": 1,
+        "horizon": "1h",
+        "weather": "🌧️ Rainy / Stormy",
+        "input_irrad_kw_m2": 0.565,
+        "effective_irrad_kw_m2": 0.085,
+        "optical_transmittance_pct": 15.0,
+        "ambient_temp_c": 28.5,
+        "module_temp_c": 45.0,
+        "thermal_rise_delta_t_c": 16.5,
+        "thermal_derating_pct": 8.0,
+        "clearness_index": 0.059,
+        "predicted_power_kw": 223.9,
+        "capacity_utilization_pct": 18.7,
+        "plant_uptime_pct": 99.8,
+    }
+
+    explanation = assistant._fallback_forecast_explanation(test_context)
+    assert "- ☀️ **Sunlight & Sky:**" in explanation
+    assert "- 🌡️ **Temperature Impact:**" in explanation
+    assert "- ⚡ **Equipment & Grid Status:**" in explanation
+    assert "223.9 kW" in explanation
+    assert "18.7%" in explanation
+
+
