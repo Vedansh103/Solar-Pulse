@@ -1,0 +1,32 @@
+model,horizon,feature_set,uses_measured_weather,rmse_all,mae_all,rmse_daylight,mae_daylight,skill_vs_seasonal_naive
+"[Phase 2] SARIMAX (irradiation, module temp) ((2, 0, 0), (0, 1, 1))",1h,weather_proxy,True,15.893,8.31,21.581,14.924,0.88
+"[Phase 2] SARIMAX (irradiation, module temp) ((2, 0, 0), (0, 1, 1))",24h,weather_proxy,True,17.26,9.152,23.436,16.439,0.87
+[Phase 3] LightGBM,24h,24h_weather,True,19.264,9.839,26.175,18.164,0.855
+[Phase 3] LightGBM,1h,1h_weather,True,19.706,10.429,26.775,19.254,0.851
+[Phase 3] XGBoost,1h,1h_weather,True,20.375,10.631,27.685,19.626,0.846
+[Phase 3] Ensemble,1h,1h_weather,True,21.505,11.594,29.219,21.404,0.838
+[Phase 3] Ensemble,24h,24h_weather,True,22.361,11.603,30.382,21.42,0.831
+[Phase 3] XGBoost,24h,24h_weather,True,23.213,11.177,31.54,20.634,0.825
+[Phase 4] LSTM,1h,1h_weather,True,27.101,15.082,36.824,27.844,0.796
+[Phase 3] CatBoost,1h,1h_weather,True,29.2,16.57,39.675,30.59,0.78
+[Phase 4] LSTM,24h,24h_weather,True,29.345,16.369,39.873,30.22,0.779
+[Phase 4] Quantile LSTM (P50),1h,1h_weather,True,30.345,17.143,41.231,31.648,0.771
+[Phase 3] CatBoost,24h,24h_weather,True,32.29,17.292,43.873,31.923,0.757
+[Phase 4] Quantile LSTM (P50),24h,24h_weather,True,37.297,21.431,50.676,39.565,0.719
+"[Phase 2] SARIMA ((1, 0, 1), (1, 1, 1))",1h,autoregressive_only,False,87.52,48.122,118.913,88.688,0.34
+"[Phase 2] Holt-Winters {'trend': None, 'damped_trend': False}",1h,autoregressive_only,False,93.383,51.961,126.84,93.944,0.296
+[Phase 3] CatBoost,1h,1h_no_weather,False,96.15,52.261,130.643,96.481,0.275
+[Phase 4] LSTM,1h,1h_no_weather,False,98.713,54.78,134.125,101.132,0.256
+[Phase 3] Ensemble,1h,1h_no_weather,False,101.601,55.046,138.049,101.624,0.234
+[Phase 3] LightGBM,1h,1h_no_weather,False,104.567,55.669,142.079,102.773,0.212
+"[Phase 2] Holt-Winters {'trend': None, 'damped_trend': False}",24h,autoregressive_only,False,110.705,63.107,150.389,114.713,0.165
+[Phase 3] XGBoost,1h,1h_no_weather,False,110.899,60.852,150.682,112.341,0.164
+"[Phase 2] SARIMA ((1, 0, 1), (1, 1, 1))",24h,autoregressive_only,False,112.294,62.289,152.578,114.994,0.153
+[Phase 4] LSTM,24h,24h_no_weather,False,112.932,61.09,153.445,112.782,0.148
+[Phase 3] XGBoost,24h,24h_no_weather,False,116.312,65.545,158.036,121.006,0.123
+[Phase 3] CatBoost,24h,24h_no_weather,False,118.885,68.192,161.533,125.893,0.104
+[Phase 3] Ensemble,24h,24h_no_weather,False,120.056,67.965,163.124,125.473,0.095
+[Phase 3] LightGBM,24h,24h_no_weather,False,130.327,71.57,177.079,132.129,0.017
+[Phase 2] Seasonal naive (t-24),24h,autoregressive_only,False,132.616,67.87,180.189,125.298,0.0
+[Phase 2] Seasonal naive (t-24),1h,autoregressive_only,False,132.616,67.87,180.189,125.298,0.0
+[Phase 2] Persistence (t-1),1h,autoregressive_only,False,143.053,92.025,194.256,168.072,-0.079

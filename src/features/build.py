@@ -147,9 +147,9 @@ def impute_and_clean_data(raw_df: pd.DataFrame, clearsky_hourly: pd.Series) -> t
     night_ac_fill = is_night & was_ac_missing
     night_wx_fill = is_night & was_wx_missing
 
-    # Physical reality per Rule 2a: all night rows are strictly 0.0
-    df.loc[is_night, "ac_power_kw"] = 0.0
-    df.loc[is_night, "irradiation"] = 0.0
+    # Rule 2a: missing night rows are 0.0; real night measurements are kept as recorded
+    df.loc[night_ac_fill, "ac_power_kw"] = 0.0
+    df.loc[night_wx_fill, "irradiation"] = 0.0
 
     imputed_night_count = int(night_ac_fill.sum())
 
@@ -315,10 +315,15 @@ def build_pipeline(plant: int) -> tuple[pd.DataFrame, dict]:
     # 3. No NaN in any column of the saved file
     assert features_df.isna().sum().sum() == 0, f"Plant {plant}: Dataset contains unexpected NaNs!"
 
-    # 4. No night row (original is_daylight == 0) has ac_power_kw > 0
-    night_mask = orig_is_daylight == 0
-    assert (features_df.loc[night_mask, "ac_power_kw"] == 0.0).all(), (
-        f"Plant {plant}: Non-zero power detected during original nighttime hours!"
+    # 4. Imputed night rows are 0, and every real measurement is unchanged
+    night_mask = (raw_df["hour"] < 6) | (raw_df["hour"] >= 19) | (orig_is_daylight == 0)
+    imputed_night = night_mask & raw_df["ac_power_kw"].isna()
+    assert (features_df.loc[imputed_night, "ac_power_kw"] == 0.0).all(), (
+        f"Plant {plant}: Imputed night hours must be 0.0 kW!"
+    )
+    real = raw_df["ac_power_kw"].notna()
+    assert np.allclose(features_df.loc[real, "ac_power_kw"], raw_df.loc[real, "ac_power_kw"]), (
+        f"Plant {plant}: Real ac_power_kw values were altered!"
     )
 
     # 5. Plant 1 vs Plant 2 imputation counts

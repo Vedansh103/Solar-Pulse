@@ -1,0 +1,11 @@
+model,setting,val_rmse_1h,val_rmse_24h,val_rmse_mean,seconds
+Holt-Winters,"{'trend': None, 'damped_trend': False}",96.593,93.196,94.894,0.5
+Holt-Winters,"{'trend': 'add', 'damped_trend': True}",96.513,92.868,94.69,0.6
+SARIMA,"((1, 0, 1), (0, 1, 1))",87.73,94.423,91.077,2.7
+SARIMA,"((2, 0, 1), (0, 1, 1))",87.929,94.426,91.178,6.8
+SARIMA,"((1, 0, 1), (1, 1, 1))",87.718,94.25,90.984,3.4
+SARIMA,"((2, 0, 0), (0, 1, 1))",87.821,94.424,91.122,2.6
+"SARIMAX (irradiation, module temp)","((1, 0, 1), (0, 1, 1))",14.612,14.298,14.455,5.9
+"SARIMAX (irradiation, module temp)","((2, 0, 1), (0, 1, 1))",14.823,14.372,14.598,7.3
+"SARIMAX (irradiation, module temp)","((1, 0, 1), (1, 1, 1))",14.605,14.292,14.448,9.9
+"SARIMAX (irradiation, module temp)","((2, 0, 0), (0, 1, 1))",14.516,14.183,14.349,5.1

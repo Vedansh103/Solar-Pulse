@@ -17,10 +17,10 @@ Phase 1 flags only: no values filled, altered or removed. Index is continuous, 8
 | Fewest / most rows per inverter | 3,104 / 3,155 | 2,355 / 3,259 |
 | Hourly AC vs irradiation correlation | 0.998 | 0.940 |
 | Median AC per inverter, 11:00-13:59 (kW) | 955 | 644 |
-| Night zeros kept (daylight=0, AC=0) | 326 | 303 |
+| Night zeros kept (daylight=0, AC=0) | 358 | 374 |
 | IQR outliers, all hours (fences) | 0 (-937, 1562) | 0 (-788, 1313) |
-| IQR outliers, daylight hours only (fences) | 0 of 470 (-857, 1839) | 0 of 513 (-807, 1512) |
-| IQR outliers, daylight, per hour of day | 10 | 9 |
+| IQR outliers, daylight hours only (fences) | 0 of 437 (-699, 1782) | 0 of 436 (-453, 1345) |
+| IQR outliers, daylight, per hour of day | 10 | 6 |
 
 ## Notes
 

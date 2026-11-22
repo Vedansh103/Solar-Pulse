@@ -1,0 +1,7 @@
+timestamp,ac_power_kw,irradiation,stl_resid,z_score,is_plant_equipment_fault,description
+2020-05-18 09:00:00,159.25,0.105,-410.51,-3.59,False,Extreme Weather Cloud Transient
+2020-05-18 10:00:00,314.13,0.21,-384.49,-3.37,False,Extreme Weather Cloud Transient
+2020-05-27 13:00:00,560.12,0.418,-353.04,-3.1,False,Extreme Weather Cloud Transient
+2020-05-30 10:00:00,481.61,0.317,-389.5,-3.41,False,Extreme Weather Cloud Transient
+2020-06-01 15:00:00,198.34,0.13,-352.63,-3.09,False,Extreme Weather Cloud Transient
+2020-06-05 12:00:00,450.38,0.313,-439.57,-3.84,False,Extreme Weather Cloud Transient

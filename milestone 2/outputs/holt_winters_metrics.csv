@@ -1,0 +1,3 @@
+Model,Horizon,RMSE_All (kW),MAE_All (kW),RMSE_Daylight (kW),Skill_Score
+Holt-Winters,1h,97.512,52.022,132.473,0.265
+Holt-Winters,24h,107.653,54.782,146.271,0.188

@@ -1,0 +1,3 @@
+Series,ADF_Statistic,ADF_p_value,KPSS_Statistic,KPSS_p_value,Verdict
+Raw AC Power,-6.3678,0.0,0.0187,0.1,Stationary
+Seasonal Differenced (Lag 24),-13.5328,0.0,0.0418,0.1,Stationary

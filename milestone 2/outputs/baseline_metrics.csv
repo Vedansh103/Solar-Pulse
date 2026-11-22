@@ -1,0 +1,4 @@
+Model,Horizon,RMSE_All (kW),MAE_All (kW),RMSE_Daylight (kW),MAE_Daylight (kW)
+Persistence (t-1),1h,143.053,92.025,194.256,168.072
+Seasonal Naive (t-24),1h,132.616,67.87,180.189,125.298
+Seasonal Naive (t-24),24h,132.616,67.87,180.189,125.298

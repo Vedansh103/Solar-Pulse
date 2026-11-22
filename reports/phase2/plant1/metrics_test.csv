@@ -1,0 +1,10 @@
+model,horizon,rmse_all,mae_all,rmse_daylight,mae_daylight,skill_vs_seasonal_naive
+Persistence (t-1),1h,143.053,92.025,194.256,168.072,-0.079
+Seasonal naive (t-24),1h,132.616,67.87,180.189,125.298,0.0
+Seasonal naive (t-24),24h,132.616,67.87,180.189,125.298,0.0
+"Holt-Winters {'trend': 'add', 'damped_trend': True}",1h,95.323,50.834,129.519,93.79,0.281
+"Holt-Winters {'trend': 'add', 'damped_trend': True}",24h,114.37,63.293,155.398,116.798,0.138
+"SARIMA ((1, 0, 1), (1, 1, 1))",1h,87.52,48.122,118.913,88.688,0.34
+"SARIMA ((1, 0, 1), (1, 1, 1))",24h,112.294,62.289,152.578,114.994,0.153
+"SARIMAX (irradiation, module temp) ((2, 0, 0), (0, 1, 1))",1h,15.893,8.31,21.581,14.924,0.88
+"SARIMAX (irradiation, module temp) ((2, 0, 0), (0, 1, 1))",24h,17.26,9.152,23.436,16.439,0.87

@@ -1,0 +1,9 @@
+horizon,feature_group,mean_abs_shap,pct_importance
+1h,Sunlight,178.8166,60.35
+1h,Heat,84.2848,28.44
+1h,History,30.5812,10.32
+1h,Time,2.6348,0.89
+24h,Sunlight,159.1601,62.53
+24h,Heat,70.5601,27.72
+24h,History,18.5451,7.29
+24h,Time,6.278,2.47

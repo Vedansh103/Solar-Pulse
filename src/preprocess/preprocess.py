@@ -1,6 +1,6 @@
 """Phase 1 preprocessing: one pipeline, run separately per plant (never stacked).
 
-Outputs (in ./output):
+Inputs (in data/raw), outputs (in data/processed):
   master_hourly_plant{1,2}.csv, inverter_hourly_plant{1,2}.csv, quality_report.md
 Phase 1 flags and never alters values: no filling, no row removal.
 """
@@ -9,12 +9,14 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-HERE = Path(__file__).parent
-OUT = HERE / "output"
-OUT.mkdir(exist_ok=True)
+ROOT = Path(__file__).resolve().parents[2]
+RAW = ROOT / "data" / "raw"
+OUT = ROOT / "data" / "processed"
+OUT.mkdir(parents=True, exist_ok=True)
 
 START, END = "2020-05-15 00:00", "2020-06-17 23:00"
 N_INV = 22
+DAYLIGHT_THRESHOLD = 0.005
 
 # Explicit timestamp formats (Plant 1 generation is day first)
 GEN_FMT = {1: "%d-%m-%Y %H:%M", 2: "%Y-%m-%d %H:%M:%S"}
@@ -29,8 +31,8 @@ def iqr_outliers(s):
 
 
 def process(plant):
-    gen = pd.read_csv(HERE / f"Plant_{plant}_Generation_Data.csv")
-    wx = pd.read_csv(HERE / f"Plant_{plant}_Weather_Sensor_Data.csv")
+    gen = pd.read_csv(RAW / f"Plant_{plant}_Generation_Data.csv")
+    wx = pd.read_csv(RAW / f"Plant_{plant}_Weather_Sensor_Data.csv")
     raw_gen_rows, raw_wx_rows = len(gen), len(wx)
 
     # Step 1: parse timestamps explicitly (all IST); drop columns per Section 4.2
@@ -70,12 +72,15 @@ def process(plant):
     m["hour"] = m.index.hour
     m["has_generation"] = m["ac_power_kw"].notna().astype(int)
     m["has_weather"] = m["irradiation"].notna().astype(int)
-    m["is_daylight"] = (m["irradiation"] > 0).astype("Int64").where(m["has_weather"] == 1)
+    # Threshold above zero: the Plant 2 sensor shows noise up to about 0.002 at night
+    m["is_daylight"] = (m["irradiation"] > DAYLIGHT_THRESHOLD).astype("Int64").where(m["has_weather"] == 1)
     m["flag_low_coverage"] = (m["min_inv"] < N_INV).astype("Int64").where(m["has_generation"] == 1)
     cols = ["ac_power_kw", "inverters_reporting", "slots_present", "irradiation",
             "module_temperature", "ambient_temperature", "hour", "is_daylight",
             "flag_low_coverage", "has_generation", "has_weather"]
-    master = m[cols]
+    master = m[cols].copy()
+    for c in ["ac_power_kw", "inverters_reporting", "irradiation", "module_temperature", "ambient_temperature"]:
+        master[c] = master[c].round(4)
 
     # Step 7: assertions
     assert len(master) == 816
@@ -86,7 +91,7 @@ def process(plant):
     # Inverter-level table (22 inverters x 816 hours) for Phase 3
     gen["hour_ts"] = gen["ts"].dt.floor("h")
     inv = gen.groupby(["hour_ts", "SOURCE_KEY"])["AC_POWER"].mean().unstack()
-    inv = inv.reindex(idx)
+    inv = inv.reindex(idx).round(4)
     inv.index.name = "timestamp"
     inv.to_csv(OUT / f"inverter_hourly_plant{plant}.csv")
 
@@ -100,8 +105,8 @@ def process(plant):
     inv_rows = gen.groupby("SOURCE_KEY").size()
     return dict(
         plant=plant, raw_gen=raw_gen_rows, raw_wx=raw_wx_rows, dups=dups,
-        nulls=int(pd.read_csv(HERE / f"Plant_{plant}_Generation_Data.csv").isna().sum().sum()
-                  + pd.read_csv(HERE / f"Plant_{plant}_Weather_Sensor_Data.csv").isna().sum().sum()),
+        nulls=int(pd.read_csv(RAW / f"Plant_{plant}_Generation_Data.csv").isna().sum().sum()
+                  + pd.read_csv(RAW / f"Plant_{plant}_Weather_Sensor_Data.csv").isna().sum().sum()),
         gen_slots=len(slot), wx_slots=int(wx["ts"].nunique()),
         no_gen=int((master["has_generation"] == 0).sum()),
         no_wx=int((master["has_weather"] == 0).sum()),
