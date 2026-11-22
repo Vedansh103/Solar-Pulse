@@ -1,0 +1,31 @@
+plant,phase,model_family,model_name,horizon,uses_weather,rmse_all,mae_all,rmse_daylight,mae_daylight,skill_score,rank_in_group
+Plant 1,Phase 2 (Classical),Classical TS,SARIMAX (with weather),24h,True,17.26,9.152,23.436,16.439,0.87,1
+Plant 1,Phase 3 (Tree GBDT),Gradient Boosting,LightGBM (weather),24h,True,19.264,9.839,26.175,18.164,0.855,2
+Plant 1,Phase 3 (Tree GBDT),Ensemble,Ensemble (weather),24h,True,22.361,11.603,30.382,21.42,0.831,3
+Plant 1,Phase 3 (Tree GBDT),Gradient Boosting,XGBoost (weather),24h,True,23.213,11.177,31.54,20.634,0.825,4
+Plant 1,Phase 4 (Deep Learning),Recurrent Neural Net,LSTM (weather),24h,True,29.345,16.369,39.873,30.22,0.779,5
+Plant 1,Phase 3 (Tree GBDT),Gradient Boosting,CatBoost (weather),24h,True,32.29,17.292,43.873,31.923,0.757,6
+Plant 1,Phase 4 (Deep Learning),Recurrent Neural Net,Quantile LSTM (P50) (weather),24h,True,37.297,21.431,50.676,39.565,0.719,7
+Plant 1,Phase 2 (Classical),Classical TS,SARIMA,24h,False,112.294,62.289,152.578,114.994,0.153,8
+Plant 1,Phase 4 (Deep Learning),Recurrent Neural Net,LSTM (no weather),24h,False,112.932,61.09,153.445,112.782,0.148,9
+Plant 1,Phase 2 (Classical),Classical TS,Holt-Winters,24h,False,114.37,63.293,155.398,116.798,0.138,10
+Plant 1,Phase 3 (Tree GBDT),Gradient Boosting,XGBoost (no weather),24h,False,116.312,65.545,158.036,121.006,0.123,11
+Plant 1,Phase 3 (Tree GBDT),Gradient Boosting,CatBoost (no weather),24h,False,118.885,68.192,161.533,125.893,0.104,12
+Plant 1,Phase 3 (Tree GBDT),Ensemble,Ensemble (no weather),24h,False,120.056,67.965,163.124,125.473,0.095,13
+Plant 1,Phase 3 (Tree GBDT),Gradient Boosting,LightGBM (no weather),24h,False,130.327,71.57,177.079,132.129,0.017,14
+Plant 1,Phase 2 (Classical),Baseline,Seasonal Naive (t-24),24h,False,132.616,67.87,180.189,125.298,0.0,15
+Plant 2,Phase 3 (Tree GBDT),Gradient Boosting,XGBoost (weather),24h,True,60.645,29.076,82.401,53.679,0.437,1
+Plant 2,Phase 3 (Tree GBDT),Gradient Boosting,LightGBM (weather),24h,True,60.945,28.988,82.808,53.516,0.434,2
+Plant 2,Phase 3 (Tree GBDT),Ensemble,Ensemble (weather),24h,True,62.229,30.605,84.552,56.502,0.422,3
+Plant 2,Phase 4 (Deep Learning),Recurrent Neural Net,Quantile LSTM (P50) (weather),24h,True,63.083,30.764,85.713,56.794,0.414,4
+Plant 2,Phase 3 (Tree GBDT),Gradient Boosting,CatBoost (weather),24h,True,68.824,36.591,93.513,67.553,0.361,5
+Plant 2,Phase 4 (Deep Learning),Recurrent Neural Net,LSTM (weather),24h,True,69.765,36.757,94.792,67.859,0.352,6
+Plant 2,Phase 2 (Classical),Classical TS,SARIMAX (with weather),24h,True,77.682,36.505,105.547,67.131,0.278,7
+Plant 2,Phase 3 (Tree GBDT),Ensemble,Ensemble (no weather),24h,False,87.034,48.958,118.256,90.384,0.192,8
+Plant 2,Phase 3 (Tree GBDT),Gradient Boosting,CatBoost (no weather),24h,False,87.266,50.128,118.571,92.544,0.189,9
+Plant 2,Phase 3 (Tree GBDT),Gradient Boosting,XGBoost (no weather),24h,False,87.719,49.071,119.187,90.592,0.185,10
+Plant 2,Phase 3 (Tree GBDT),Gradient Boosting,LightGBM (no weather),24h,False,90.514,50.89,122.984,93.951,0.159,11
+Plant 2,Phase 2 (Classical),Classical TS,SARIMA,24h,False,93.393,50.389,126.896,93.026,0.133,12
+Plant 2,Phase 4 (Deep Learning),Recurrent Neural Net,LSTM (no weather),24h,False,97.734,52.984,132.794,97.817,0.092,13
+Plant 2,Phase 2 (Classical),Baseline,Seasonal Naive (t-24),24h,False,107.658,60.025,146.279,110.815,0.0,14
+Plant 2,Phase 2 (Classical),Classical TS,Holt-Winters,24h,False,118.816,65.127,161.439,120.23,-0.104,15

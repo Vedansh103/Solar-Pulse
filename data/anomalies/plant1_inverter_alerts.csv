@@ -1,0 +1,72 @@
+timestamp,inverter_id,ac_power_kw,cohort_median_kw,peer_ratio,severity,anomaly_type,lost_power_kw
+2020-05-15 09:00:00,zVJPv84UY57bAof,253.88,580.91,0.437,MEDIUM,Underperformance / Soiling,327.03
+2020-05-15 10:00:00,1BY6WEcLGh8j5v7,524.73,661.39,0.793,MEDIUM,Underperformance / Soiling,136.66
+2020-05-15 10:00:00,bvBOhCH3iADSZry,508.42,661.39,0.769,MEDIUM,Underperformance / Soiling,152.97
+2020-05-19 17:00:00,1IF53ai7Xc0U56Y,0.0,154.42,0.0,CRITICAL,Missing / Dead Inverter,154.42
+2020-05-19 17:00:00,3PZuoBAID5Wc2HD,0.0,154.42,0.0,CRITICAL,Missing / Dead Inverter,154.42
+2020-05-19 17:00:00,WRmjgnKYAwPKWDb,0.0,154.42,0.0,CRITICAL,Missing / Dead Inverter,154.42
+2020-05-19 17:00:00,adLQvlD726eNBSB,0.0,154.42,0.0,CRITICAL,Missing / Dead Inverter,154.42
+2020-05-22 10:00:00,McdE0feGgRqW7Ca,475.8,748.59,0.636,MEDIUM,Underperformance / Soiling,272.79
+2020-05-23 09:00:00,rGa61gmuvPhdLxV,562.94,852.8,0.66,MEDIUM,Underperformance / Soiling,289.87
+2020-05-24 15:00:00,zBIq5rxdHJRwDNY,319.55,537.44,0.595,MEDIUM,Underperformance / Soiling,217.89
+2020-05-25 10:00:00,ih0vzX44oOqAx2f,671.54,1091.79,0.615,MEDIUM,Underperformance / Soiling,420.25
+2020-05-27 18:00:00,1BY6WEcLGh8j5v7,9.46,24.77,0.382,MEDIUM,Underperformance / Soiling,15.32
+2020-05-27 18:00:00,1IF53ai7Xc0U56Y,10.98,24.77,0.443,MEDIUM,Underperformance / Soiling,13.79
+2020-05-27 18:00:00,3PZuoBAID5Wc2HD,10.0,24.77,0.403,MEDIUM,Underperformance / Soiling,14.78
+2020-05-27 18:00:00,7JYdWkrLSPkdwr4,10.25,24.77,0.414,MEDIUM,Underperformance / Soiling,14.53
+2020-05-27 18:00:00,VHMLBKoKgIrUVDU,10.69,24.77,0.431,MEDIUM,Underperformance / Soiling,14.09
+2020-05-27 18:00:00,WRmjgnKYAwPKWDb,10.16,24.77,0.41,MEDIUM,Underperformance / Soiling,14.62
+2020-05-27 18:00:00,ZnxXDlPa8U1GXgE,10.84,24.77,0.438,MEDIUM,Underperformance / Soiling,13.93
+2020-05-27 18:00:00,adLQvlD726eNBSB,11.6,24.77,0.468,MEDIUM,Underperformance / Soiling,13.18
+2020-05-27 18:00:00,bvBOhCH3iADSZry,9.07,24.77,0.366,MEDIUM,Underperformance / Soiling,15.7
+2020-05-27 18:00:00,ih0vzX44oOqAx2f,10.67,24.77,0.431,MEDIUM,Underperformance / Soiling,14.1
+2020-05-29 18:00:00,1BY6WEcLGh8j5v7,12.84,25.61,0.502,MEDIUM,Underperformance / Soiling,12.76
+2020-05-29 18:00:00,1IF53ai7Xc0U56Y,13.87,25.61,0.542,MEDIUM,Underperformance / Soiling,11.74
+2020-05-29 18:00:00,3PZuoBAID5Wc2HD,13.47,25.61,0.526,MEDIUM,Underperformance / Soiling,12.14
+2020-05-29 18:00:00,7JYdWkrLSPkdwr4,13.95,25.61,0.545,MEDIUM,Underperformance / Soiling,11.66
+2020-05-29 18:00:00,VHMLBKoKgIrUVDU,13.97,25.61,0.546,MEDIUM,Underperformance / Soiling,11.63
+2020-05-29 18:00:00,WRmjgnKYAwPKWDb,13.16,25.61,0.514,MEDIUM,Underperformance / Soiling,12.44
+2020-05-29 18:00:00,ZnxXDlPa8U1GXgE,14.47,25.61,0.565,MEDIUM,Underperformance / Soiling,11.14
+2020-05-29 18:00:00,adLQvlD726eNBSB,14.77,25.61,0.577,MEDIUM,Underperformance / Soiling,10.84
+2020-05-29 18:00:00,bvBOhCH3iADSZry,12.64,25.61,0.493,MEDIUM,Underperformance / Soiling,12.97
+2020-05-29 18:00:00,ih0vzX44oOqAx2f,14.41,25.61,0.563,MEDIUM,Underperformance / Soiling,11.2
+2020-05-31 13:00:00,1BY6WEcLGh8j5v7,489.34,656.59,0.745,MEDIUM,Underperformance / Soiling,167.25
+2020-06-01 11:00:00,pkci93gMrogZuBj,704.22,982.8,0.717,MEDIUM,Underperformance / Soiling,278.58
+2020-06-01 11:00:00,rGa61gmuvPhdLxV,777.95,982.8,0.792,MEDIUM,Underperformance / Soiling,204.85
+2020-06-01 11:00:00,uHbuxQJl8lW7ozc,714.82,982.8,0.727,MEDIUM,Underperformance / Soiling,267.98
+2020-06-04 18:00:00,1BY6WEcLGh8j5v7,26.38,39.21,0.673,MEDIUM,Underperformance / Soiling,12.83
+2020-06-04 18:00:00,1IF53ai7Xc0U56Y,29.1,39.21,0.742,MEDIUM,Underperformance / Soiling,10.11
+2020-06-04 18:00:00,3PZuoBAID5Wc2HD,27.47,39.21,0.7,MEDIUM,Underperformance / Soiling,11.74
+2020-06-04 18:00:00,7JYdWkrLSPkdwr4,28.01,39.21,0.714,MEDIUM,Underperformance / Soiling,11.2
+2020-06-04 18:00:00,VHMLBKoKgIrUVDU,27.82,39.21,0.709,MEDIUM,Underperformance / Soiling,11.39
+2020-06-04 18:00:00,WRmjgnKYAwPKWDb,26.72,39.21,0.682,MEDIUM,Underperformance / Soiling,12.49
+2020-06-04 18:00:00,ZnxXDlPa8U1GXgE,29.2,39.21,0.745,MEDIUM,Underperformance / Soiling,10.01
+2020-06-04 18:00:00,adLQvlD726eNBSB,29.52,39.21,0.753,MEDIUM,Underperformance / Soiling,9.69
+2020-06-04 18:00:00,bvBOhCH3iADSZry,26.39,39.21,0.673,MEDIUM,Underperformance / Soiling,12.83
+2020-06-04 18:00:00,ih0vzX44oOqAx2f,28.97,39.21,0.739,MEDIUM,Underperformance / Soiling,10.24
+2020-06-07 12:00:00,1BY6WEcLGh8j5v7,345.41,1278.4,0.27,MEDIUM,Underperformance / Soiling,933.0
+2020-06-07 12:00:00,bvBOhCH3iADSZry,297.41,1278.4,0.233,MEDIUM,Underperformance / Soiling,980.99
+2020-06-07 12:00:00,sjndEbLyjtCKgGv,993.28,1278.4,0.777,MEDIUM,Underperformance / Soiling,285.12
+2020-06-07 12:00:00,wCURE6d3bPkepu2,516.62,1278.4,0.404,MEDIUM,Underperformance / Soiling,761.78
+2020-06-07 12:00:00,z9Y9gH1T5YWrNuG,506.51,1278.4,0.396,MEDIUM,Underperformance / Soiling,771.9
+2020-06-07 13:00:00,1BY6WEcLGh8j5v7,27.87,1052.45,0.026,HIGH,Inverter Disconnect / Trip,1024.58
+2020-06-07 13:00:00,McdE0feGgRqW7Ca,15.34,1052.45,0.015,HIGH,Inverter Disconnect / Trip,1037.12
+2020-06-07 13:00:00,bvBOhCH3iADSZry,31.59,1052.45,0.03,HIGH,Inverter Disconnect / Trip,1020.87
+2020-06-07 13:00:00,sjndEbLyjtCKgGv,16.8,1052.45,0.016,HIGH,Inverter Disconnect / Trip,1035.66
+2020-06-07 13:00:00,wCURE6d3bPkepu2,14.04,1052.45,0.013,HIGH,Inverter Disconnect / Trip,1038.41
+2020-06-07 13:00:00,z9Y9gH1T5YWrNuG,0.0,1052.45,0.0,HIGH,Inverter Disconnect / Trip,1052.45
+2020-06-07 14:00:00,1BY6WEcLGh8j5v7,163.95,775.26,0.211,MEDIUM,Underperformance / Soiling,611.31
+2020-06-07 14:00:00,bvBOhCH3iADSZry,166.36,775.26,0.215,MEDIUM,Underperformance / Soiling,608.9
+2020-06-14 11:00:00,1BY6WEcLGh8j5v7,52.73,854.76,0.062,HIGH,Inverter Disconnect / Trip,802.03
+2020-06-14 11:00:00,bvBOhCH3iADSZry,60.41,854.76,0.071,HIGH,Inverter Disconnect / Trip,794.35
+2020-06-14 12:00:00,1BY6WEcLGh8j5v7,0.0,719.38,0.0,HIGH,Inverter Disconnect / Trip,719.38
+2020-06-14 12:00:00,bvBOhCH3iADSZry,0.0,719.38,0.0,HIGH,Inverter Disconnect / Trip,719.38
+2020-06-14 13:00:00,1BY6WEcLGh8j5v7,0.0,1016.84,0.0,HIGH,Inverter Disconnect / Trip,1016.84
+2020-06-14 13:00:00,bvBOhCH3iADSZry,0.0,1016.84,0.0,HIGH,Inverter Disconnect / Trip,1016.84
+2020-06-14 14:00:00,1BY6WEcLGh8j5v7,407.58,986.37,0.413,MEDIUM,Underperformance / Soiling,578.79
+2020-06-14 14:00:00,bvBOhCH3iADSZry,404.99,986.37,0.411,MEDIUM,Underperformance / Soiling,581.38
+2020-06-16 12:00:00,zBIq5rxdHJRwDNY,192.69,588.34,0.328,MEDIUM,Underperformance / Soiling,395.65
+2020-06-17 06:00:00,1BY6WEcLGh8j5v7,17.23,22.68,0.76,MEDIUM,Underperformance / Soiling,5.45
+2020-06-17 06:00:00,bvBOhCH3iADSZry,0.0,22.68,0.0,HIGH,Inverter Disconnect / Trip,22.68
+2020-06-17 06:00:00,iCRJl6heRkivqQ3,0.0,22.68,0.0,HIGH,Inverter Disconnect / Trip,22.68
+2020-06-17 06:00:00,ih0vzX44oOqAx2f,13.52,22.68,0.596,MEDIUM,Underperformance / Soiling,9.16

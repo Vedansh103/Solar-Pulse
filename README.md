@@ -34,15 +34,13 @@ src/
   models/       classical, tree, deep learning models (P2-P4)
   anomaly/      plant and inverter anomaly detection (P5)
   evaluation/   transfer test, leaderboard (P6-P7)
-  rag/          knowledge base ingestion and retrieval (P8)
-  llm/          LLM assistant and tools (P9-P10)
-  api/, app/    backend and dashboard (P11)
+  llm/          LLM assistant and tools (P8-P9)
+  api/, app/    backend and dashboard (P10)
 configs/        plant location and other settings
 reports/        metrics tables and written results per phase
 figures/        generated plots (not tracked, rebuilt by scripts)
 docs/           project reference PDFs and change log
 slides/         presentation decks
-kb/             RAG knowledge base store
 tests/
 ```
 
@@ -59,7 +57,11 @@ python src/models/tree_models.py --plant 1 # P3: gradient-boosted trees & ensemb
 python src/models/shap_analysis.py --plant 1 # P3: SHAP explainability analysis -> figures/phase3
 python src/models/tree_models.py --plant 2
 python src/models/shap_analysis.py --plant 2
-pytest -q                                  # Run automated test suite (22 tests)
+python src/evaluation/transfer_test.py      # P6: cross-plant transfer test -> reports/phase6
+python src/evaluation/leaderboard.py        # P7: master leaderboard -> reports/phase7
+python src/evaluation/model_registry.py     # P7: model registry -> models/registry
+python src/llm/eval_safety.py               # P8-P9: LLM assistant evaluation & safety -> reports/phase9
+pytest -q                                  # Run automated test suite (41 tests)
 ```
 
 ## Phases
@@ -70,14 +72,13 @@ pytest -q                                  # Run automated test suite (22 tests)
 | P1 | Gap imputation and feature engineering | Done |
 | P2 | Baselines and classical models (persistence, seasonal naive, Holt-Winters, SARIMA, SARIMAX) | Done |
 | P3 | Gradient boosting (XGBoost, LightGBM, CatBoost), Ensembles, and SHAP | Done |
-| P4 | Deep learning (LSTM/GRU, TCN) and P10-P90 forecast bands | Planned |
-| P5 | Anomaly detection (STL residuals, inverter peer ratio, Isolation Forest) | Planned |
-| P6 | Cross-plant transfer test on Plant 2 | Planned |
-| P7 | Leaderboard and model registry | Planned |
-| P8 | RAG knowledge base | Planned |
-| P9 | LLM assistant with data tools | Planned |
-| P10 | LLM evaluation and safety | Planned |
-| P11 | Dashboard, API and deployment | Planned |
+| P4 | Deep learning (LSTM/GRU, TCN) and P10-P90 forecast bands | Done |
+| P5 | Anomaly detection (STL residuals, inverter peer ratio, Isolation Forest) | Done |
+| P6 | Cross-plant transfer test on Plant 2 | Done |
+| P7 | Leaderboard and model registry | Done |
+| P8 | LLM assistant with data tools (anomaly explanation & maintenance) | Done |
+| P9 | LLM evaluation and safety (grounding guard) | Done |
+| P10 | Dashboard, API and deployment | Planned |
 
 ## Caveats
 

@@ -1,0 +1,5 @@
+timestamp,ac_power_kw,irradiation,stl_resid,z_score,is_plant_equipment_fault,description
+2020-06-01 13:00:00,164.86,0.115,-392.57,-3.78,False,Extreme Weather Cloud Transient
+2020-06-01 14:00:00,64.93,0.043,-445.56,-4.29,False,Extreme Weather Cloud Transient
+2020-06-01 15:00:00,65.26,0.043,-402.79,-3.87,False,Extreme Weather Cloud Transient
+2020-06-02 12:00:00,358.54,0.897,-318.56,-3.06,True,Severe Plant Generation Collapse
