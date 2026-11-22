@@ -60,7 +60,8 @@ python src/models/shap_analysis.py --plant 2
 python src/evaluation/transfer_test.py      # P6: cross-plant transfer test -> reports/phase6
 python src/evaluation/leaderboard.py        # P7: master leaderboard -> reports/phase7
 python src/evaluation/model_registry.py     # P7: model registry -> models/registry
-pytest -q                                  # Run automated test suite (36 tests)
+python src/llm/eval_safety.py               # P8-P9: LLM assistant evaluation & safety -> reports/phase9
+pytest -q                                  # Run automated test suite (41 tests)
 ```
 
 ## Phases
@@ -75,8 +76,8 @@ pytest -q                                  # Run automated test suite (36 tests)
 | P5 | Anomaly detection (STL residuals, inverter peer ratio, Isolation Forest) | Done |
 | P6 | Cross-plant transfer test on Plant 2 | Done |
 | P7 | Leaderboard and model registry | Done |
-| P8 | LLM assistant with data tools | Planned |
-| P9 | LLM evaluation and safety | Planned |
+| P8 | LLM assistant with data tools (anomaly explanation & maintenance) | Done |
+| P9 | LLM evaluation and safety (grounding guard) | Done |
 | P10 | Dashboard, API and deployment | Planned |
 
 ## Caveats
