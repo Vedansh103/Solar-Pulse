@@ -58,7 +58,9 @@ python src/models/shap_analysis.py --plant 1 # P3: SHAP explainability analysis 
 python src/models/tree_models.py --plant 2
 python src/models/shap_analysis.py --plant 2
 python src/evaluation/transfer_test.py      # P6: cross-plant transfer test -> reports/phase6
-pytest -q                                  # Run automated test suite (30+ tests)
+python src/evaluation/leaderboard.py        # P7: master leaderboard -> reports/phase7
+python src/evaluation/model_registry.py     # P7: model registry -> models/registry
+pytest -q                                  # Run automated test suite (36 tests)
 ```
 
 ## Phases
@@ -72,7 +74,7 @@ pytest -q                                  # Run automated test suite (30+ tests
 | P4 | Deep learning (LSTM/GRU, TCN) and P10-P90 forecast bands | Done |
 | P5 | Anomaly detection (STL residuals, inverter peer ratio, Isolation Forest) | Done |
 | P6 | Cross-plant transfer test on Plant 2 | Done |
-| P7 | Leaderboard and model registry | Planned |
+| P7 | Leaderboard and model registry | Done |
 | P8 | LLM assistant with data tools | Planned |
 | P9 | LLM evaluation and safety | Planned |
 | P10 | Dashboard, API and deployment | Planned |
