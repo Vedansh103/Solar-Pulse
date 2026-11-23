@@ -114,65 +114,67 @@ def main():
             background-color: transparent !important;
         }
 
-        /* Unified 3D Radiant Sun with Prominent Rays */
-        .solar-sun-unified-widget {
+        /* Top-Right Glowing Animated Sun Widget */
+        .solar-sun-widget {
             position: fixed;
-            top: 2px;
-            right: 12px;
-            width: 210px;
-            height: 210px;
-            z-index: 99999;
+            top: 14px;
+            right: 28px;
+            width: 130px;
+            height: 130px;
+            z-index: 9999;
             pointer-events: none !important;
             user-select: none !important;
-            filter: drop-shadow(0 0 32px rgba(255, 175, 0, 0.95)) drop-shadow(0 0 16px rgba(255, 235, 59, 0.85));
+            filter: drop-shadow(0 0 24px rgba(255, 179, 0, 0.88));
         }
 
-        /* 3D Sun & Rays Kinetic Animations */
-        @keyframes spinUnifiedRays {
+        /* Fullscreen Diagonal Sunlight Beams Overlay */
+        .solar-sunlight-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 9997;
+            pointer-events: none !important;
+            user-select: none !important;
+        }
+
+        /* Dynamic Visual Animations */
+        @keyframes spinRays {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        @keyframes counterSpinUnifiedRays {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(-360deg); }
+        @keyframes pulseCorona {
+            0%, 100% { transform: scale(1); opacity: 0.82; }
+            50% { transform: scale(1.16); opacity: 1.0; }
         }
-        @keyframes pulseUnifiedCorona {
-            0%, 100% { transform: scale(1); opacity: 0.85; }
-            50% { transform: scale(1.15); opacity: 1.0; }
+        @keyframes beamPulse1 {
+            0%, 100% { opacity: 0.40; }
+            50% { opacity: 0.80; }
         }
-        @keyframes pulseVolumetricBeams {
-            0%, 100% { opacity: 0.55; transform: scale(0.96); }
-            50% { opacity: 0.95; transform: scale(1.08); }
-        }
-        @keyframes flareRingGlint {
-            0%, 100% { opacity: 0.45; transform: rotate(-10deg) scale(0.96); }
-            50% { opacity: 0.95; transform: rotate(10deg) scale(1.06); }
+        @keyframes beamPulse2 {
+            0%, 100% { opacity: 0.25; }
+            50% { opacity: 0.65; }
         }
 
-        .unified-volumetric-burst {
-            animation: pulseVolumetricBeams 4.0s ease-in-out infinite;
-            transform-origin: 110px 110px;
+        .sun-rays {
+            animation: spinRays 28s linear infinite;
+            transform-origin: 60px 60px;
             transform-box: view-box;
         }
-        .unified-rays-outer {
-            animation: spinUnifiedRays 32s linear infinite;
-            transform-origin: 110px 110px;
+        .sun-corona {
+            animation: pulseCorona 4.2s ease-in-out infinite;
+            transform-origin: 60px 60px;
             transform-box: view-box;
         }
-        .unified-rays-inner {
-            animation: counterSpinUnifiedRays 22s linear infinite;
-            transform-origin: 110px 110px;
-            transform-box: view-box;
+        .beam-pulse-1 {
+            animation: beamPulse1 4.5s ease-in-out infinite;
         }
-        .unified-corona {
-            animation: pulseUnifiedCorona 3.8s ease-in-out infinite;
-            transform-origin: 110px 110px;
-            transform-box: view-box;
+        .beam-pulse-2 {
+            animation: beamPulse2 3.8s ease-in-out infinite 1s;
         }
-        .unified-flare-ring {
-            animation: flareRingGlint 3.4s ease-in-out infinite;
-            transform-origin: 110px 110px;
-            transform-box: view-box;
+        .beam-pulse-3 {
+            animation: beamPulse1 5.2s ease-in-out infinite 2s;
         }
 
         /* Glassmorphic Metric Cards */
@@ -272,99 +274,80 @@ def main():
         unsafe_allow_html=True,
     )
 
-    # 3D Radiant Sun with Prominent Rays (Unindented to prevent markdown code block parsing)
+    # Radiant Glowing Sun Widget with Diagonal Streaming Sunlight Beams (Exact Match to Reference)
     sun_widget_html = (
-        '<div class="solar-sun-unified-widget">'
-        '<svg viewBox="0 0 220 220" width="100%" height="100%">'
+        '<!-- 1. TOP-RIGHT RADIANT GLOWING SUN WIDGET -->'
+        '<div class="solar-sun-widget">'
+        '<svg viewBox="0 0 120 120" width="100%" height="100%">'
         '<defs>'
-        '<radialGradient id="sunSphere3D" cx="35%" cy="30%" r="65%">'
+        '<radialGradient id="sunCoreGrad" cx="50%" cy="50%" r="50%">'
         '<stop offset="0%" stop-color="#ffffff"/>'
-        '<stop offset="16%" stop-color="#fff9c4"/>'
-        '<stop offset="38%" stop-color="#ffca28"/>'
-        '<stop offset="68%" stop-color="#ff9100"/>'
-        '<stop offset="86%" stop-color="#f57c00"/>'
-        '<stop offset="100%" stop-color="#bf360c"/>'
+        '<stop offset="35%" stop-color="#fff59d"/>'
+        '<stop offset="68%" stop-color="#ffa726"/>'
+        '<stop offset="100%" stop-color="#ff6d00"/>'
         '</radialGradient>'
-        '<radialGradient id="coronaGrad3D" cx="50%" cy="50%" r="50%">'
-        '<stop offset="0%" stop-color="#ffe082" stop-opacity="0.90"/>'
-        '<stop offset="35%" stop-color="#ffb300" stop-opacity="0.50"/>'
-        '<stop offset="70%" stop-color="#ff6d00" stop-opacity="0.18"/>'
+        '<radialGradient id="sunCoronaGrad" cx="50%" cy="50%" r="50%">'
+        '<stop offset="0%" stop-color="#ffe082" stop-opacity="0.85"/>'
+        '<stop offset="45%" stop-color="#ffb74d" stop-opacity="0.45"/>'
+        '<stop offset="85%" stop-color="#ff9100" stop-opacity="0.15"/>'
         '<stop offset="100%" stop-color="#ff6d00" stop-opacity="0"/>'
         '</radialGradient>'
-        '<linearGradient id="volumetricBeamGrad" x1="0%" y1="100%" x2="0%" y2="0%">'
-        '<stop offset="0%" stop-color="#ffe57f" stop-opacity="0.85"/>'
-        '<stop offset="35%" stop-color="#ffd54f" stop-opacity="0.55"/>'
-        '<stop offset="75%" stop-color="#ffb300" stop-opacity="0.18"/>'
-        '<stop offset="100%" stop-color="#ff9100" stop-opacity="0"/>'
-        '</linearGradient>'
-        '<linearGradient id="rayLightFacet" x1="0%" y1="0%" x2="100%" y2="100%">'
-        '<stop offset="0%" stop-color="#ffffff"/>'
-        '<stop offset="30%" stop-color="#fff59d"/>'
-        '<stop offset="100%" stop-color="#ffca28"/>'
-        '</linearGradient>'
-        '<linearGradient id="rayDarkFacet" x1="0%" y1="0%" x2="100%" y2="100%">'
-        '<stop offset="0%" stop-color="#ffa000"/>'
-        '<stop offset="100%" stop-color="#e65100"/>'
-        '</linearGradient>'
-        '<filter id="sun3DGlow" x="-50%" y="-50%" width="200%" height="200%">'
-        '<feGaussianBlur in="SourceAlpha" stdDeviation="5" result="blur"/>'
-        '<feFlood flood-color="#ffa000" flood-opacity="0.90" result="glowColor"/>'
-        '<feComposite in2="blur" in="glowColor" operator="in" result="coloredBlur"/>'
+        '<filter id="sunCoreGlow" x="-50%" y="-50%" width="200%" height="200%">'
+        '<feGaussianBlur stdDeviation="5" result="blur"/>'
         '<feMerge>'
-        '<feMergeNode in="coloredBlur"/>'
+        '<feMergeNode in="blur"/>'
         '<feMergeNode in="SourceGraphic"/>'
         '</feMerge>'
         '</filter>'
         '</defs>'
-        '<!-- 1. Ambient Volumetric Radiant Light Shafts -->'
-        '<g class="unified-volumetric-burst">'
-        '<circle cx="110" cy="110" r="92" fill="url(#coronaGrad3D)" class="unified-corona"/>'
-        '<g transform="rotate(0 110 110)"><polygon points="104,74 116,74 134,2 86,2" fill="url(#volumetricBeamGrad)"/></g>'
-        '<g transform="rotate(45 110 110)"><polygon points="104,74 116,74 134,2 86,2" fill="url(#volumetricBeamGrad)"/></g>'
-        '<g transform="rotate(90 110 110)"><polygon points="104,74 116,74 134,2 86,2" fill="url(#volumetricBeamGrad)"/></g>'
-        '<g transform="rotate(135 110 110)"><polygon points="104,74 116,74 134,2 86,2" fill="url(#volumetricBeamGrad)"/></g>'
-        '<g transform="rotate(180 110 110)"><polygon points="104,74 116,74 134,2 86,2" fill="url(#volumetricBeamGrad)"/></g>'
-        '<g transform="rotate(225 110 110)"><polygon points="104,74 116,74 134,2 86,2" fill="url(#volumetricBeamGrad)"/></g>'
-        '<g transform="rotate(270 110 110)"><polygon points="104,74 116,74 134,2 86,2" fill="url(#volumetricBeamGrad)"/></g>'
-        '<g transform="rotate(315 110 110)"><polygon points="104,74 116,74 134,2 86,2" fill="url(#volumetricBeamGrad)"/></g>'
+        '<!-- Pulsing outer corona -->'
+        '<circle cx="60" cy="60" r="48" fill="url(#sunCoronaGrad)" class="sun-corona"/>'
+        '<!-- 12 Rotating Solar Rays -->'
+        '<g class="sun-rays">'
+        '<line x1="60" y1="12" x2="60" y2="24" stroke="#ffca28" stroke-width="3" stroke-linecap="round"/>'
+        '<line x1="60" y1="96" x2="60" y2="108" stroke="#ffca28" stroke-width="3" stroke-linecap="round"/>'
+        '<line x1="12" y1="60" x2="24" y2="60" stroke="#ffca28" stroke-width="3" stroke-linecap="round"/>'
+        '<line x1="96" y1="60" x2="108" y2="60" stroke="#ffca28" stroke-width="3" stroke-linecap="round"/>'
+        '<line x1="26" y1="26" x2="35" y2="35" stroke="#ffa726" stroke-width="2.5" stroke-linecap="round"/>'
+        '<line x1="85" y1="85" x2="94" y2="94" stroke="#ffa726" stroke-width="2.5" stroke-linecap="round"/>'
+        '<line x1="26" y1="94" x2="35" y2="85" stroke="#ffa726" stroke-width="2.5" stroke-linecap="round"/>'
+        '<line x1="85" y1="35" x2="94" y2="26" stroke="#ffa726" stroke-width="2.5" stroke-linecap="round"/>'
+        '<polygon points="60,6 63,16 57,16" fill="#ffd54f"/>'
+        '<polygon points="60,114 63,104 57,104" fill="#ffd54f"/>'
+        '<polygon points="6,60 16,63 16,57" fill="#ffd54f"/>'
+        '<polygon points="114,60 104,63 104,57" fill="#ffd54f"/>'
         '</g>'
-        '<!-- 2. Outer Rotating 16 Chiseled 3D Solar Rays (8 Long, 8 Medium) -->'
-        '<g class="unified-rays-outer">'
-        '<g transform="rotate(0 110 110)"><polygon points="110,6 102,76 110,74" fill="url(#rayLightFacet)"/><polygon points="110,6 118,76 110,74" fill="url(#rayDarkFacet)"/><line x1="110" y1="6" x2="110" y2="75" stroke="#ffffff" stroke-width="1.5" opacity="0.85"/></g>'
-        '<g transform="rotate(22.5 110 110)"><polygon points="110,26 104,76 110,74" fill="url(#rayLightFacet)"/><polygon points="110,26 116,76 110,74" fill="url(#rayDarkFacet)"/><line x1="110" y1="26" x2="110" y2="75" stroke="#ffffff" stroke-width="1.2" opacity="0.80"/></g>'
-        '<g transform="rotate(45 110 110)"><polygon points="110,6 102,76 110,74" fill="url(#rayLightFacet)"/><polygon points="110,6 118,76 110,74" fill="url(#rayDarkFacet)"/><line x1="110" y1="6" x2="110" y2="75" stroke="#ffffff" stroke-width="1.5" opacity="0.85"/></g>'
-        '<g transform="rotate(67.5 110 110)"><polygon points="110,26 104,76 110,74" fill="url(#rayLightFacet)"/><polygon points="110,26 116,76 110,74" fill="url(#rayDarkFacet)"/><line x1="110" y1="26" x2="110" y2="75" stroke="#ffffff" stroke-width="1.2" opacity="0.80"/></g>'
-        '<g transform="rotate(90 110 110)"><polygon points="110,6 102,76 110,74" fill="url(#rayLightFacet)"/><polygon points="110,6 118,76 110,74" fill="url(#rayDarkFacet)"/><line x1="110" y1="6" x2="110" y2="75" stroke="#ffffff" stroke-width="1.5" opacity="0.85"/></g>'
-        '<g transform="rotate(112.5 110 110)"><polygon points="110,26 104,76 110,74" fill="url(#rayLightFacet)"/><polygon points="110,26 116,76 110,74" fill="url(#rayDarkFacet)"/><line x1="110" y1="26" x2="110" y2="75" stroke="#ffffff" stroke-width="1.2" opacity="0.80"/></g>'
-        '<g transform="rotate(135 110 110)"><polygon points="110,6 102,76 110,74" fill="url(#rayLightFacet)"/><polygon points="110,6 118,76 110,74" fill="url(#rayDarkFacet)"/><line x1="110" y1="6" x2="110" y2="75" stroke="#ffffff" stroke-width="1.5" opacity="0.85"/></g>'
-        '<g transform="rotate(157.5 110 110)"><polygon points="110,26 104,76 110,74" fill="url(#rayLightFacet)"/><polygon points="110,26 116,76 110,74" fill="url(#rayDarkFacet)"/><line x1="110" y1="26" x2="110" y2="75" stroke="#ffffff" stroke-width="1.2" opacity="0.80"/></g>'
-        '<g transform="rotate(180 110 110)"><polygon points="110,6 102,76 110,74" fill="url(#rayLightFacet)"/><polygon points="110,6 118,76 110,74" fill="url(#rayDarkFacet)"/><line x1="110" y1="6" x2="110" y2="75" stroke="#ffffff" stroke-width="1.5" opacity="0.85"/></g>'
-        '<g transform="rotate(202.5 110 110)"><polygon points="110,26 104,76 110,74" fill="url(#rayLightFacet)"/><polygon points="110,26 116,76 110,74" fill="url(#rayDarkFacet)"/><line x1="110" y1="26" x2="110" y2="75" stroke="#ffffff" stroke-width="1.2" opacity="0.80"/></g>'
-        '<g transform="rotate(225 110 110)"><polygon points="110,6 102,76 110,74" fill="url(#rayLightFacet)"/><polygon points="110,6 118,76 110,74" fill="url(#rayDarkFacet)"/><line x1="110" y1="6" x2="110" y2="75" stroke="#ffffff" stroke-width="1.5" opacity="0.85"/></g>'
-        '<g transform="rotate(247.5 110 110)"><polygon points="110,26 104,76 110,74" fill="url(#rayLightFacet)"/><polygon points="110,26 116,76 110,74" fill="url(#rayDarkFacet)"/><line x1="110" y1="26" x2="110" y2="75" stroke="#ffffff" stroke-width="1.2" opacity="0.80"/></g>'
-        '<g transform="rotate(270 110 110)"><polygon points="110,6 102,76 110,74" fill="url(#rayLightFacet)"/><polygon points="110,6 118,76 110,74" fill="url(#rayDarkFacet)"/><line x1="110" y1="6" x2="110" y2="75" stroke="#ffffff" stroke-width="1.5" opacity="0.85"/></g>'
-        '<g transform="rotate(292.5 110 110)"><polygon points="110,26 104,76 110,74" fill="url(#rayLightFacet)"/><polygon points="110,26 116,76 110,74" fill="url(#rayDarkFacet)"/><line x1="110" y1="26" x2="110" y2="75" stroke="#ffffff" stroke-width="1.2" opacity="0.80"/></g>'
-        '<g transform="rotate(315 110 110)"><polygon points="110,6 102,76 110,74" fill="url(#rayLightFacet)"/><polygon points="110,6 118,76 110,74" fill="url(#rayDarkFacet)"/><line x1="110" y1="6" x2="110" y2="75" stroke="#ffffff" stroke-width="1.5" opacity="0.85"/></g>'
-        '<g transform="rotate(337.5 110 110)"><polygon points="110,26 104,76 110,74" fill="url(#rayLightFacet)"/><polygon points="110,26 116,76 110,74" fill="url(#rayDarkFacet)"/><line x1="110" y1="26" x2="110" y2="75" stroke="#ffffff" stroke-width="1.2" opacity="0.80"/></g>'
-        '</g>'
-        '<!-- 3. Inner Counter-Rotating Darts -->'
-        '<g class="unified-rays-inner">'
-        '<g transform="rotate(0 110 110)"><polygon points="110,48 106,75 114,75" fill="#ffe082" opacity="0.95"/></g>'
-        '<g transform="rotate(45 110 110)"><polygon points="110,48 106,75 114,75" fill="#ffe082" opacity="0.95"/></g>'
-        '<g transform="rotate(90 110 110)"><polygon points="110,48 106,75 114,75" fill="#ffe082" opacity="0.95"/></g>'
-        '<g transform="rotate(135 110 110)"><polygon points="110,48 106,75 114,75" fill="#ffe082" opacity="0.95"/></g>'
-        '<g transform="rotate(180 110 110)"><polygon points="110,48 106,75 114,75" fill="#ffe082" opacity="0.95"/></g>'
-        '<g transform="rotate(225 110 110)"><polygon points="110,48 106,75 114,75" fill="#ffe082" opacity="0.95"/></g>'
-        '<g transform="rotate(270 110 110)"><polygon points="110,48 106,75 114,75" fill="#ffe082" opacity="0.95"/></g>'
-        '<g transform="rotate(315 110 110)"><polygon points="110,48 106,75 114,75" fill="#ffe082" opacity="0.95"/></g>'
-        '</g>'
-        '<!-- 4. 3D Chromatic Flare Ring Around Sun -->'
-        '<ellipse cx="110" cy="110" rx="82" ry="26" fill="none" stroke="#ffe082" stroke-width="1.4" opacity="0.75" class="unified-flare-ring"/>'
-        '<!-- 5. Central 3D Spherical Sun Body -->'
-        '<circle cx="110" cy="110" r="36" fill="url(#sunSphere3D)" filter="url(#sun3DGlow)"/>'
-        '<!-- 6. 3D Specular Glint Highlights -->'
-        '<ellipse cx="98" cy="95" rx="12" ry="7" transform="rotate(-35 98 95)" fill="#ffffff" opacity="0.85"/>'
-        '<circle cx="92" cy="89" r="3.5" fill="#ffffff" opacity="0.95"/>'
+        '<!-- Central Core Sun Disk -->'
+        '<circle cx="60" cy="60" r="26" fill="url(#sunCoreGrad)" filter="url(#sunCoreGlow)"/>'
+        '<circle cx="60" cy="60" r="13" fill="#ffffff" opacity="0.95"/>'
+        '</svg>'
+        '</div>'
+        '<!-- 2. FULLSCREEN DIAGONAL SUNLIGHT BEAMS OVERLAY (STREAMING FROM SUN DOWN ACROSS DASHBOARD) -->'
+        '<div class="solar-sunlight-overlay">'
+        '<svg viewBox="0 0 1920 1080" width="100%" height="100%" preserveAspectRatio="none">'
+        '<defs>'
+        '<linearGradient id="beamShaft1" x1="95%" y1="5%" x2="12%" y2="92%">'
+        '<stop offset="0%" stop-color="#fff9c4" stop-opacity="0.55"/>'
+        '<stop offset="25%" stop-color="#ffe082" stop-opacity="0.32"/>'
+        '<stop offset="65%" stop-color="#ffd54f" stop-opacity="0.16"/>'
+        '<stop offset="90%" stop-color="#ffb300" stop-opacity="0.06"/>'
+        '<stop offset="100%" stop-color="#ffb300" stop-opacity="0"/>'
+        '</linearGradient>'
+        '<linearGradient id="beamShaft2" x1="93%" y1="4%" x2="18%" y2="88%">'
+        '<stop offset="0%" stop-color="#ffffff" stop-opacity="0.45"/>'
+        '<stop offset="35%" stop-color="#fff59d" stop-opacity="0.22"/>'
+        '<stop offset="75%" stop-color="#ffe082" stop-opacity="0.08"/>'
+        '<stop offset="100%" stop-color="#ffca28" stop-opacity="0"/>'
+        '</linearGradient>'
+        '<linearGradient id="beamShaft3" x1="96%" y1="6%" x2="6%" y2="96%">'
+        '<stop offset="0%" stop-color="#ffe57f" stop-opacity="0.38"/>'
+        '<stop offset="45%" stop-color="#ffd740" stop-opacity="0.14"/>'
+        '<stop offset="100%" stop-color="#ffab00" stop-opacity="0"/>'
+        '</linearGradient>'
+        '</defs>'
+        '<polygon points="1840,40 1880,50 420,1080 120,1080" fill="url(#beamShaft1)" class="beam-pulse-1"/>'
+        '<polygon points="1820,30 1860,40 280,1080 0,980" fill="url(#beamShaft2)" class="beam-pulse-2"/>'
+        '<polygon points="1850,55 1870,60 550,1080 320,1080" fill="url(#beamShaft3)" class="beam-pulse-3"/>'
         '</svg>'
         '</div>'
     )
