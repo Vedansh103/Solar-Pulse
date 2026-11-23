@@ -34,9 +34,11 @@ Thumbs.db
 # ...except the team's project reference docs
 !docs/*.pdf
 
-# Final project evaluation reports and build scripts (kept local, not pushed to git)
+# Final project evaluation reports, synopsis and build scripts (kept local, not pushed to git)
 reports/FINAL_PROJECT_REPORT_*
 reports/build_pdf_report.py
+reports/SolarPulse_Project_Synopsis*
+scripts/build_synopsis_pdf.py
 
 # 2. Generated figures (rebuilt by the scripts)
 figures/**/*.png
