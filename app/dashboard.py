@@ -114,20 +114,20 @@ def main():
             background-color: transparent !important;
         }
 
-        /* Unified 3D Radiant Sun with Rays Together */
+        /* Unified 3D Radiant Sun with Prominent Rays */
         .solar-sun-unified-widget {
             position: fixed;
-            top: 8px;
-            right: 18px;
-            width: 155px;
-            height: 155px;
-            z-index: 9999;
+            top: 2px;
+            right: 12px;
+            width: 210px;
+            height: 210px;
+            z-index: 99999;
             pointer-events: none !important;
             user-select: none !important;
-            filter: drop-shadow(0 0 28px rgba(255, 175, 0, 0.95));
+            filter: drop-shadow(0 0 32px rgba(255, 175, 0, 0.95)) drop-shadow(0 0 16px rgba(255, 235, 59, 0.85));
         }
 
-        /* 3D Kinetic Animations */
+        /* 3D Sun & Rays Kinetic Animations */
         @keyframes spinUnifiedRays {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -137,41 +137,41 @@ def main():
             100% { transform: rotate(-360deg); }
         }
         @keyframes pulseUnifiedCorona {
-            0%, 100% { transform: scale(1); opacity: 0.82; }
-            50% { transform: scale(1.14); opacity: 1.0; }
+            0%, 100% { transform: scale(1); opacity: 0.85; }
+            50% { transform: scale(1.15); opacity: 1.0; }
         }
-        @keyframes pulseVolumetricShafts {
-            0%, 100% { opacity: 0.45; transform: scale(0.96); }
-            50% { opacity: 0.85; transform: scale(1.06); }
+        @keyframes pulseVolumetricBeams {
+            0%, 100% { opacity: 0.55; transform: scale(0.96); }
+            50% { opacity: 0.95; transform: scale(1.08); }
         }
         @keyframes flareRingGlint {
-            0%, 100% { opacity: 0.40; transform: rotate(-10deg) scale(0.96); }
-            50% { opacity: 0.90; transform: rotate(10deg) scale(1.06); }
+            0%, 100% { opacity: 0.45; transform: rotate(-10deg) scale(0.96); }
+            50% { opacity: 0.95; transform: rotate(10deg) scale(1.06); }
         }
 
         .unified-volumetric-burst {
-            animation: pulseVolumetricShafts 4.2s ease-in-out infinite;
-            transform-origin: 80px 80px;
+            animation: pulseVolumetricBeams 4.0s ease-in-out infinite;
+            transform-origin: 110px 110px;
             transform-box: view-box;
         }
         .unified-rays-outer {
-            animation: spinUnifiedRays 28s linear infinite;
-            transform-origin: 80px 80px;
+            animation: spinUnifiedRays 32s linear infinite;
+            transform-origin: 110px 110px;
             transform-box: view-box;
         }
         .unified-rays-inner {
-            animation: counterSpinUnifiedRays 20s linear infinite;
-            transform-origin: 80px 80px;
+            animation: counterSpinUnifiedRays 22s linear infinite;
+            transform-origin: 110px 110px;
             transform-box: view-box;
         }
         .unified-corona {
-            animation: pulseUnifiedCorona 4.0s ease-in-out infinite;
-            transform-origin: 80px 80px;
+            animation: pulseUnifiedCorona 3.8s ease-in-out infinite;
+            transform-origin: 110px 110px;
             transform-box: view-box;
         }
         .unified-flare-ring {
-            animation: flareRingGlint 3.6s ease-in-out infinite;
-            transform-origin: 80px 80px;
+            animation: flareRingGlint 3.4s ease-in-out infinite;
+            transform-origin: 110px 110px;
             transform-box: view-box;
         }
 
@@ -272,10 +272,10 @@ def main():
         unsafe_allow_html=True,
     )
 
-    # 3D Radiant Sun with Rays Together (Unindented to prevent markdown code block parsing)
+    # 3D Radiant Sun with Prominent Rays (Unindented to prevent markdown code block parsing)
     sun_widget_html = (
         '<div class="solar-sun-unified-widget">'
-        '<svg viewBox="0 0 160 160" width="100%" height="100%">'
+        '<svg viewBox="0 0 220 220" width="100%" height="100%">'
         '<defs>'
         '<radialGradient id="sunSphere3D" cx="35%" cy="30%" r="65%">'
         '<stop offset="0%" stop-color="#ffffff"/>'
@@ -286,19 +286,20 @@ def main():
         '<stop offset="100%" stop-color="#bf360c"/>'
         '</radialGradient>'
         '<radialGradient id="coronaGrad3D" cx="50%" cy="50%" r="50%">'
-        '<stop offset="0%" stop-color="#ffe082" stop-opacity="0.85"/>'
-        '<stop offset="35%" stop-color="#ffb300" stop-opacity="0.45"/>'
-        '<stop offset="70%" stop-color="#ff6d00" stop-opacity="0.15"/>'
+        '<stop offset="0%" stop-color="#ffe082" stop-opacity="0.90"/>'
+        '<stop offset="35%" stop-color="#ffb300" stop-opacity="0.50"/>'
+        '<stop offset="70%" stop-color="#ff6d00" stop-opacity="0.18"/>'
         '<stop offset="100%" stop-color="#ff6d00" stop-opacity="0"/>'
         '</radialGradient>'
-        '<linearGradient id="rayBurstGrad" x1="0%" y1="100%" x2="0%" y2="0%">'
-        '<stop offset="0%" stop-color="#ffe57f" stop-opacity="0.75"/>'
-        '<stop offset="40%" stop-color="#ffd54f" stop-opacity="0.40"/>'
-        '<stop offset="80%" stop-color="#ffb300" stop-opacity="0.10"/>'
+        '<linearGradient id="volumetricBeamGrad" x1="0%" y1="100%" x2="0%" y2="0%">'
+        '<stop offset="0%" stop-color="#ffe57f" stop-opacity="0.85"/>'
+        '<stop offset="35%" stop-color="#ffd54f" stop-opacity="0.55"/>'
+        '<stop offset="75%" stop-color="#ffb300" stop-opacity="0.18"/>'
         '<stop offset="100%" stop-color="#ff9100" stop-opacity="0"/>'
         '</linearGradient>'
         '<linearGradient id="rayLightFacet" x1="0%" y1="0%" x2="100%" y2="100%">'
-        '<stop offset="0%" stop-color="#fff9c4"/>'
+        '<stop offset="0%" stop-color="#ffffff"/>'
+        '<stop offset="30%" stop-color="#fff59d"/>'
         '<stop offset="100%" stop-color="#ffca28"/>'
         '</linearGradient>'
         '<linearGradient id="rayDarkFacet" x1="0%" y1="0%" x2="100%" y2="100%">'
@@ -306,8 +307,8 @@ def main():
         '<stop offset="100%" stop-color="#e65100"/>'
         '</linearGradient>'
         '<filter id="sun3DGlow" x="-50%" y="-50%" width="200%" height="200%">'
-        '<feGaussianBlur in="SourceAlpha" stdDeviation="4.5" result="blur"/>'
-        '<feFlood flood-color="#ffa000" flood-opacity="0.85" result="glowColor"/>'
+        '<feGaussianBlur in="SourceAlpha" stdDeviation="5" result="blur"/>'
+        '<feFlood flood-color="#ffa000" flood-opacity="0.90" result="glowColor"/>'
         '<feComposite in2="blur" in="glowColor" operator="in" result="coloredBlur"/>'
         '<feMerge>'
         '<feMergeNode in="coloredBlur"/>'
@@ -315,47 +316,55 @@ def main():
         '</feMerge>'
         '</filter>'
         '</defs>'
-        '<!-- 1. Ambient Volumetric Radiant Light Rays -->'
+        '<!-- 1. Ambient Volumetric Radiant Light Shafts -->'
         '<g class="unified-volumetric-burst">'
-        '<circle cx="80" cy="80" r="70" fill="url(#coronaGrad3D)" class="unified-corona"/>'
-        '<g transform="rotate(0 80 80)"><polygon points="76,34 84,34 88,6 72,6" fill="url(#rayBurstGrad)"/></g>'
-        '<g transform="rotate(45 80 80)"><polygon points="76,34 84,34 88,6 72,6" fill="url(#rayBurstGrad)"/></g>'
-        '<g transform="rotate(90 80 80)"><polygon points="76,34 84,34 88,6 72,6" fill="url(#rayBurstGrad)"/></g>'
-        '<g transform="rotate(135 80 80)"><polygon points="76,34 84,34 88,6 72,6" fill="url(#rayBurstGrad)"/></g>'
-        '<g transform="rotate(180 80 80)"><polygon points="76,34 84,34 88,6 72,6" fill="url(#rayBurstGrad)"/></g>'
-        '<g transform="rotate(225 80 80)"><polygon points="76,34 84,34 88,6 72,6" fill="url(#rayBurstGrad)"/></g>'
-        '<g transform="rotate(270 80 80)"><polygon points="76,34 84,34 88,6 72,6" fill="url(#rayBurstGrad)"/></g>'
-        '<g transform="rotate(315 80 80)"><polygon points="76,34 84,34 88,6 72,6" fill="url(#rayBurstGrad)"/></g>'
+        '<circle cx="110" cy="110" r="92" fill="url(#coronaGrad3D)" class="unified-corona"/>'
+        '<g transform="rotate(0 110 110)"><polygon points="104,74 116,74 134,2 86,2" fill="url(#volumetricBeamGrad)"/></g>'
+        '<g transform="rotate(45 110 110)"><polygon points="104,74 116,74 134,2 86,2" fill="url(#volumetricBeamGrad)"/></g>'
+        '<g transform="rotate(90 110 110)"><polygon points="104,74 116,74 134,2 86,2" fill="url(#volumetricBeamGrad)"/></g>'
+        '<g transform="rotate(135 110 110)"><polygon points="104,74 116,74 134,2 86,2" fill="url(#volumetricBeamGrad)"/></g>'
+        '<g transform="rotate(180 110 110)"><polygon points="104,74 116,74 134,2 86,2" fill="url(#volumetricBeamGrad)"/></g>'
+        '<g transform="rotate(225 110 110)"><polygon points="104,74 116,74 134,2 86,2" fill="url(#volumetricBeamGrad)"/></g>'
+        '<g transform="rotate(270 110 110)"><polygon points="104,74 116,74 134,2 86,2" fill="url(#volumetricBeamGrad)"/></g>'
+        '<g transform="rotate(315 110 110)"><polygon points="104,74 116,74 134,2 86,2" fill="url(#volumetricBeamGrad)"/></g>'
         '</g>'
-        '<!-- 2. 3D Chromatic Flare Ring Around Sun -->'
-        '<ellipse cx="80" cy="80" rx="64" ry="20" fill="none" stroke="#ffe082" stroke-width="1.3" opacity="0.65" class="unified-flare-ring"/>'
-        '<!-- 3. Outer Rotating Chiseled 3D Solar Rays -->'
+        '<!-- 2. Outer Rotating 16 Chiseled 3D Solar Rays (8 Long, 8 Medium) -->'
         '<g class="unified-rays-outer">'
-        '<g transform="rotate(0 80 80)"><polygon points="80,10 75,36 80,34" fill="url(#rayLightFacet)"/><polygon points="80,10 85,36 80,34" fill="url(#rayDarkFacet)"/></g>'
-        '<g transform="rotate(45 80 80)"><polygon points="80,10 75,36 80,34" fill="url(#rayLightFacet)"/><polygon points="80,10 85,36 80,34" fill="url(#rayDarkFacet)"/></g>'
-        '<g transform="rotate(90 80 80)"><polygon points="80,10 75,36 80,34" fill="url(#rayLightFacet)"/><polygon points="80,10 85,36 80,34" fill="url(#rayDarkFacet)"/></g>'
-        '<g transform="rotate(135 80 80)"><polygon points="80,10 75,36 80,34" fill="url(#rayLightFacet)"/><polygon points="80,10 85,36 80,34" fill="url(#rayDarkFacet)"/></g>'
-        '<g transform="rotate(180 80 80)"><polygon points="80,10 75,36 80,34" fill="url(#rayLightFacet)"/><polygon points="80,10 85,36 80,34" fill="url(#rayDarkFacet)"/></g>'
-        '<g transform="rotate(225 80 80)"><polygon points="80,10 75,36 80,34" fill="url(#rayLightFacet)"/><polygon points="80,10 85,36 80,34" fill="url(#rayDarkFacet)"/></g>'
-        '<g transform="rotate(270 80 80)"><polygon points="80,10 75,36 80,34" fill="url(#rayLightFacet)"/><polygon points="80,10 85,36 80,34" fill="url(#rayDarkFacet)"/></g>'
-        '<g transform="rotate(315 80 80)"><polygon points="80,10 75,36 80,34" fill="url(#rayLightFacet)"/><polygon points="80,10 85,36 80,34" fill="url(#rayDarkFacet)"/></g>'
+        '<g transform="rotate(0 110 110)"><polygon points="110,6 102,76 110,74" fill="url(#rayLightFacet)"/><polygon points="110,6 118,76 110,74" fill="url(#rayDarkFacet)"/><line x1="110" y1="6" x2="110" y2="75" stroke="#ffffff" stroke-width="1.5" opacity="0.85"/></g>'
+        '<g transform="rotate(22.5 110 110)"><polygon points="110,26 104,76 110,74" fill="url(#rayLightFacet)"/><polygon points="110,26 116,76 110,74" fill="url(#rayDarkFacet)"/><line x1="110" y1="26" x2="110" y2="75" stroke="#ffffff" stroke-width="1.2" opacity="0.80"/></g>'
+        '<g transform="rotate(45 110 110)"><polygon points="110,6 102,76 110,74" fill="url(#rayLightFacet)"/><polygon points="110,6 118,76 110,74" fill="url(#rayDarkFacet)"/><line x1="110" y1="6" x2="110" y2="75" stroke="#ffffff" stroke-width="1.5" opacity="0.85"/></g>'
+        '<g transform="rotate(67.5 110 110)"><polygon points="110,26 104,76 110,74" fill="url(#rayLightFacet)"/><polygon points="110,26 116,76 110,74" fill="url(#rayDarkFacet)"/><line x1="110" y1="26" x2="110" y2="75" stroke="#ffffff" stroke-width="1.2" opacity="0.80"/></g>'
+        '<g transform="rotate(90 110 110)"><polygon points="110,6 102,76 110,74" fill="url(#rayLightFacet)"/><polygon points="110,6 118,76 110,74" fill="url(#rayDarkFacet)"/><line x1="110" y1="6" x2="110" y2="75" stroke="#ffffff" stroke-width="1.5" opacity="0.85"/></g>'
+        '<g transform="rotate(112.5 110 110)"><polygon points="110,26 104,76 110,74" fill="url(#rayLightFacet)"/><polygon points="110,26 116,76 110,74" fill="url(#rayDarkFacet)"/><line x1="110" y1="26" x2="110" y2="75" stroke="#ffffff" stroke-width="1.2" opacity="0.80"/></g>'
+        '<g transform="rotate(135 110 110)"><polygon points="110,6 102,76 110,74" fill="url(#rayLightFacet)"/><polygon points="110,6 118,76 110,74" fill="url(#rayDarkFacet)"/><line x1="110" y1="6" x2="110" y2="75" stroke="#ffffff" stroke-width="1.5" opacity="0.85"/></g>'
+        '<g transform="rotate(157.5 110 110)"><polygon points="110,26 104,76 110,74" fill="url(#rayLightFacet)"/><polygon points="110,26 116,76 110,74" fill="url(#rayDarkFacet)"/><line x1="110" y1="26" x2="110" y2="75" stroke="#ffffff" stroke-width="1.2" opacity="0.80"/></g>'
+        '<g transform="rotate(180 110 110)"><polygon points="110,6 102,76 110,74" fill="url(#rayLightFacet)"/><polygon points="110,6 118,76 110,74" fill="url(#rayDarkFacet)"/><line x1="110" y1="6" x2="110" y2="75" stroke="#ffffff" stroke-width="1.5" opacity="0.85"/></g>'
+        '<g transform="rotate(202.5 110 110)"><polygon points="110,26 104,76 110,74" fill="url(#rayLightFacet)"/><polygon points="110,26 116,76 110,74" fill="url(#rayDarkFacet)"/><line x1="110" y1="26" x2="110" y2="75" stroke="#ffffff" stroke-width="1.2" opacity="0.80"/></g>'
+        '<g transform="rotate(225 110 110)"><polygon points="110,6 102,76 110,74" fill="url(#rayLightFacet)"/><polygon points="110,6 118,76 110,74" fill="url(#rayDarkFacet)"/><line x1="110" y1="6" x2="110" y2="75" stroke="#ffffff" stroke-width="1.5" opacity="0.85"/></g>'
+        '<g transform="rotate(247.5 110 110)"><polygon points="110,26 104,76 110,74" fill="url(#rayLightFacet)"/><polygon points="110,26 116,76 110,74" fill="url(#rayDarkFacet)"/><line x1="110" y1="26" x2="110" y2="75" stroke="#ffffff" stroke-width="1.2" opacity="0.80"/></g>'
+        '<g transform="rotate(270 110 110)"><polygon points="110,6 102,76 110,74" fill="url(#rayLightFacet)"/><polygon points="110,6 118,76 110,74" fill="url(#rayDarkFacet)"/><line x1="110" y1="6" x2="110" y2="75" stroke="#ffffff" stroke-width="1.5" opacity="0.85"/></g>'
+        '<g transform="rotate(292.5 110 110)"><polygon points="110,26 104,76 110,74" fill="url(#rayLightFacet)"/><polygon points="110,26 116,76 110,74" fill="url(#rayDarkFacet)"/><line x1="110" y1="26" x2="110" y2="75" stroke="#ffffff" stroke-width="1.2" opacity="0.80"/></g>'
+        '<g transform="rotate(315 110 110)"><polygon points="110,6 102,76 110,74" fill="url(#rayLightFacet)"/><polygon points="110,6 118,76 110,74" fill="url(#rayDarkFacet)"/><line x1="110" y1="6" x2="110" y2="75" stroke="#ffffff" stroke-width="1.5" opacity="0.85"/></g>'
+        '<g transform="rotate(337.5 110 110)"><polygon points="110,26 104,76 110,74" fill="url(#rayLightFacet)"/><polygon points="110,26 116,76 110,74" fill="url(#rayDarkFacet)"/><line x1="110" y1="26" x2="110" y2="75" stroke="#ffffff" stroke-width="1.2" opacity="0.80"/></g>'
         '</g>'
-        '<!-- 4. Inner Counter-Rotating Golden Dart Rays -->'
+        '<!-- 3. Inner Counter-Rotating Darts -->'
         '<g class="unified-rays-inner">'
-        '<g transform="rotate(22.5 80 80)"><polygon points="80,24 77,40 83,40" fill="#ffe082" opacity="0.90"/></g>'
-        '<g transform="rotate(67.5 80 80)"><polygon points="80,24 77,40 83,40" fill="#ffe082" opacity="0.90"/></g>'
-        '<g transform="rotate(112.5 80 80)"><polygon points="80,24 77,40 83,40" fill="#ffe082" opacity="0.90"/></g>'
-        '<g transform="rotate(157.5 80 80)"><polygon points="80,24 77,40 83,40" fill="#ffe082" opacity="0.90"/></g>'
-        '<g transform="rotate(202.5 80 80)"><polygon points="80,24 77,40 83,40" fill="#ffe082" opacity="0.90"/></g>'
-        '<g transform="rotate(247.5 80 80)"><polygon points="80,24 77,40 83,40" fill="#ffe082" opacity="0.90"/></g>'
-        '<g transform="rotate(292.5 80 80)"><polygon points="80,24 77,40 83,40" fill="#ffe082" opacity="0.90"/></g>'
-        '<g transform="rotate(337.5 80 80)"><polygon points="80,24 77,40 83,40" fill="#ffe082" opacity="0.90"/></g>'
+        '<g transform="rotate(0 110 110)"><polygon points="110,48 106,75 114,75" fill="#ffe082" opacity="0.95"/></g>'
+        '<g transform="rotate(45 110 110)"><polygon points="110,48 106,75 114,75" fill="#ffe082" opacity="0.95"/></g>'
+        '<g transform="rotate(90 110 110)"><polygon points="110,48 106,75 114,75" fill="#ffe082" opacity="0.95"/></g>'
+        '<g transform="rotate(135 110 110)"><polygon points="110,48 106,75 114,75" fill="#ffe082" opacity="0.95"/></g>'
+        '<g transform="rotate(180 110 110)"><polygon points="110,48 106,75 114,75" fill="#ffe082" opacity="0.95"/></g>'
+        '<g transform="rotate(225 110 110)"><polygon points="110,48 106,75 114,75" fill="#ffe082" opacity="0.95"/></g>'
+        '<g transform="rotate(270 110 110)"><polygon points="110,48 106,75 114,75" fill="#ffe082" opacity="0.95"/></g>'
+        '<g transform="rotate(315 110 110)"><polygon points="110,48 106,75 114,75" fill="#ffe082" opacity="0.95"/></g>'
         '</g>'
+        '<!-- 4. 3D Chromatic Flare Ring Around Sun -->'
+        '<ellipse cx="110" cy="110" rx="82" ry="26" fill="none" stroke="#ffe082" stroke-width="1.4" opacity="0.75" class="unified-flare-ring"/>'
         '<!-- 5. Central 3D Spherical Sun Body -->'
-        '<circle cx="80" cy="80" r="32" fill="url(#sunSphere3D)" filter="url(#sun3DGlow)"/>'
+        '<circle cx="110" cy="110" r="36" fill="url(#sunSphere3D)" filter="url(#sun3DGlow)"/>'
         '<!-- 6. 3D Specular Glint Highlights -->'
-        '<ellipse cx="70" cy="67" rx="11" ry="6.5" transform="rotate(-35 70 67)" fill="#ffffff" opacity="0.82"/>'
-        '<circle cx="65" cy="62" r="3.2" fill="#ffffff" opacity="0.95"/>'
+        '<ellipse cx="98" cy="95" rx="12" ry="7" transform="rotate(-35 98 95)" fill="#ffffff" opacity="0.85"/>'
+        '<circle cx="92" cy="89" r="3.5" fill="#ffffff" opacity="0.95"/>'
         '</svg>'
         '</div>'
     )
