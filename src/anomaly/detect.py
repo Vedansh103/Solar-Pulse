@@ -16,7 +16,10 @@ import warnings
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import seaborn as sns
+try:
+    import seaborn as sns
+except ImportError:
+    sns = None
 from sklearn.ensemble import IsolationForest
 from statsmodels.tsa.seasonal import STL
 
@@ -271,7 +274,11 @@ def run_phase5_anomaly_detection(plant: int = 1):
     plt.figure(figsize=(14, 6), dpi=150)
     # Subsample daylight hours for clean heatmap visualization
     day_ratios = peer_ratio.loc[master_df["is_daylight"] == 1].T
-    sns.heatmap(day_ratios.iloc[:, ::6], cmap="RdYlGn", vmin=0.0, vmax=1.2, cbar_kws={"label": "Peer Ratio (Output / Median)"})
+    if sns is not None:
+        sns.heatmap(day_ratios.iloc[:, ::6], cmap="RdYlGn", vmin=0.0, vmax=1.2, cbar_kws={"label": "Peer Ratio (Output / Median)"})
+    else:
+        im = plt.imshow(day_ratios.iloc[:, ::6], cmap="RdYlGn", vmin=0.0, vmax=1.2, aspect="auto")
+        plt.colorbar(im, label="Peer Ratio (Output / Median)")
     plt.title(f"Plant {plant}: Inverter Peer-Ratio Matrix Across Test Timeline (Green=Normal, Red=Down)", fontsize=13, fontweight="bold")
     plt.xlabel("Sampled Daylight Hours", fontsize=11)
     plt.ylabel("Inverter ID", fontsize=11)
