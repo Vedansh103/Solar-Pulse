@@ -31,8 +31,9 @@ Thumbs.db
 # Project Specific Exclusions:
 # 1. PDF files (guidelines, project details, documentation PDFs)
 *.pdf
-# ...except the team's project reference docs
+# ...except the team's project reference docs and generated final reports
 !docs/*.pdf
+!reports/*.pdf
 
 # 2. Generated figures (rebuilt by the scripts)
 figures/**/*.png
