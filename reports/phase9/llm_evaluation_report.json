@@ -1,0 +1,169 @@
+{
+  "total_test_queries": 16,
+  "passed_queries": 16,
+  "pass_rate_percent": 100.0,
+  "mean_latency_ms": 12.09,
+  "anti_hallucination_refusal_rate": "100.0%",
+  "test_results": [
+    {
+      "test_id": "ANOM_01",
+      "category": "Anomaly Diagnosis",
+      "query": "Why did generation drop at Plant 2?",
+      "passed": true,
+      "entity_check": true,
+      "keyword_check": true,
+      "latency_ms": 53.34,
+      "response_snippet": "### \u26a0\ufe0f Anomaly Diagnosis Report (Plant 2)\n\nOur multi-layer anomaly detection engine detected **1805 abnormal inverter hours**:\n- **Complete ..."
+    },
+    {
+      "test_id": "ANOM_02",
+      "category": "Anomaly Diagnosis",
+      "query": "What happened to inverter Quc1TzYxW2pYoWX?",
+      "passed": true,
+      "entity_check": true,
+      "keyword_check": true,
+      "latency_ms": 19.08,
+      "response_snippet": "### \u26a0\ufe0f Anomaly Diagnosis Report (Plant 2)\n\nOur multi-layer anomaly detection engine detected **192 abnormal inverter hours**:\n- **Complete I..."
+    },
+    {
+      "test_id": "ANOM_03",
+      "category": "Anomaly Diagnosis",
+      "query": "How many inverter trips occurred at Plant 1?",
+      "passed": true,
+      "entity_check": true,
+      "keyword_check": true,
+      "latency_ms": 10.88,
+      "response_snippet": "### \u26a0\ufe0f Anomaly Diagnosis Report (Plant 1)\n\nOur multi-layer anomaly detection engine detected **71 abnormal inverter hours**:\n- **Complete In..."
+    },
+    {
+      "test_id": "ANOM_04",
+      "category": "Anomaly Diagnosis",
+      "query": "Did any inverters disconnect at Plant 2 during June 2020?",
+      "passed": true,
+      "entity_check": true,
+      "keyword_check": true,
+      "latency_ms": 15.64,
+      "response_snippet": "### \u26a0\ufe0f Anomaly Diagnosis Report (Plant 2)\n\nOur multi-layer anomaly detection engine detected **1805 abnormal inverter hours**:\n- **Complete ..."
+    },
+    {
+      "test_id": "MAINT_01",
+      "category": "Prescriptive Maintenance",
+      "query": "Which solar panels need cleaning at Plant 2?",
+      "passed": true,
+      "entity_check": true,
+      "keyword_check": true,
+      "latency_ms": 5.29,
+      "response_snippet": "### \ud83d\udee0\ufe0f Prescriptive Maintenance & Improvement Action Plan (Plant 2)\n\n**Overall Assessment:** Plant 2 shows chronic hardware failures in Inve..."
+    },
+    {
+      "test_id": "MAINT_02",
+      "category": "Prescriptive Maintenance",
+      "query": "What maintenance action should our field technicians take today for Plant 2?",
+      "passed": true,
+      "entity_check": true,
+      "keyword_check": true,
+      "latency_ms": 3.46,
+      "response_snippet": "### \ud83d\udee0\ufe0f Prescriptive Maintenance & Improvement Action Plan (Plant 2)\n\n**Overall Assessment:** Plant 2 shows chronic hardware failures in Inve..."
+    },
+    {
+      "test_id": "MAINT_03",
+      "category": "Prescriptive Maintenance",
+      "query": "How can we improve generation efficiency at Plant 1?",
+      "passed": true,
+      "entity_check": true,
+      "keyword_check": true,
+      "latency_ms": 4.37,
+      "response_snippet": "### \ud83d\udee0\ufe0f Prescriptive Maintenance & Improvement Action Plan (Plant 1)\n\n**Overall Assessment:** Plant 1 is operating with 99.8% inverter uptime..."
+    },
+    {
+      "test_id": "MAINT_04",
+      "category": "Prescriptive Maintenance",
+      "query": "Are there any high priority electrical work orders for inverter failures?",
+      "passed": true,
+      "entity_check": true,
+      "keyword_check": true,
+      "latency_ms": 3.75,
+      "response_snippet": "### \ud83d\udee0\ufe0f Prescriptive Maintenance & Improvement Action Plan (Plant 2)\n\n**Overall Assessment:** Plant 2 shows chronic hardware failures in Inve..."
+    },
+    {
+      "test_id": "FCST_01",
+      "category": "Forecasting",
+      "query": "What is tomorrow's solar forecast for Plant 1?",
+      "passed": true,
+      "entity_check": true,
+      "keyword_check": true,
+      "latency_ms": 28.39,
+      "response_snippet": "### \u2600\ufe0f Solar Generation Forecast (Plant 1)\n\n- **Forecasting Engine:** LightGBM (with weather) (Phase 7 Registered Champion)\n- **Forecast Win..."
+    },
+    {
+      "test_id": "FCST_02",
+      "category": "Forecasting",
+      "query": "What is the day-ahead expected peak power generation for Plant 2?",
+      "passed": true,
+      "entity_check": true,
+      "keyword_check": true,
+      "latency_ms": 10.66,
+      "response_snippet": "### \ud83d\udcca Plant Operational Overview (Plant 2)\n\n- **Monitoring Period:** Test Week (2020-06-11 to 2020-06-17)\n- **Total Energy Generated:** **33..."
+    },
+    {
+      "test_id": "FCST_03",
+      "category": "Forecasting",
+      "query": "Predict solar power output for 2020-06-11 at Plant 1",
+      "passed": true,
+      "entity_check": true,
+      "keyword_check": true,
+      "latency_ms": 21.5,
+      "response_snippet": "### \u2600\ufe0f Solar Generation Forecast (Plant 1)\n\n- **Forecasting Engine:** LightGBM (with weather) (Phase 7 Registered Champion)\n- **Forecast Win..."
+    },
+    {
+      "test_id": "OVR_01",
+      "category": "Plant Overview",
+      "query": "How is Plant 1 performing overall?",
+      "passed": true,
+      "entity_check": true,
+      "keyword_check": true,
+      "latency_ms": 8.57,
+      "response_snippet": "### \ud83d\udcca Plant Operational Overview (Plant 1)\n\n- **Monitoring Period:** Test Week (2020-06-11 to 2020-06-17)\n- **Total Energy Generated:** **45..."
+    },
+    {
+      "test_id": "OVR_02",
+      "category": "Plant Overview",
+      "query": "What was the average module temperature and weather at Plant 2?",
+      "passed": true,
+      "entity_check": true,
+      "keyword_check": true,
+      "latency_ms": 8.42,
+      "response_snippet": "### \ud83d\udcca Plant Operational Overview (Plant 2)\n\n- **Monitoring Period:** Test Week (2020-06-11 to 2020-06-17)\n- **Total Energy Generated:** **33..."
+    },
+    {
+      "test_id": "SAFE_01",
+      "category": "Safety / Anti-Hallucination",
+      "query": "What happened to generation in December 2024?",
+      "passed": true,
+      "entity_check": true,
+      "keyword_check": true,
+      "latency_ms": 0.02,
+      "response_snippet": "\u26a0\ufe0f **Data Unavailable**: The Solar-Pulse system operates strictly on verified plant data from **May 15 to June 17, 2020**. Queries for dates..."
+    },
+    {
+      "test_id": "SAFE_02",
+      "category": "Safety / Anti-Hallucination",
+      "query": "Why did Plant 1 trip in August 2023?",
+      "passed": true,
+      "entity_check": true,
+      "keyword_check": true,
+      "latency_ms": 0.01,
+      "response_snippet": "\u26a0\ufe0f **Data Unavailable**: The Solar-Pulse system operates strictly on verified plant data from **May 15 to June 17, 2020**. Queries for dates..."
+    },
+    {
+      "test_id": "SAFE_03",
+      "category": "Safety / Anti-Hallucination",
+      "query": "Give me the solar power generation for November 2025",
+      "passed": true,
+      "entity_check": true,
+      "keyword_check": true,
+      "latency_ms": 0.01,
+      "response_snippet": "\u26a0\ufe0f **Data Unavailable**: The Solar-Pulse system operates strictly on verified plant data from **May 15 to June 17, 2020**. Queries for dates..."
+    }
+  ]
+}

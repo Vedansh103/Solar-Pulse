@@ -25,11 +25,22 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.tmp.*
+.env
+.env.local
 
 # Project Specific Exclusions:
 # 1. PDF files (guidelines, project details, documentation PDFs)
 *.pdf
+# ...except the team's project reference docs
+!docs/*.pdf
 
-# 2. EDA visual outputs
-output/eda_plots/
+# 2. Generated figures (rebuilt by the scripts)
+figures/**/*.png
 *.png
+!milestone 2/outputs/*.png
+
+# 3. Model artifacts and experiment tracking
+mlruns/
+*.pkl
+*.joblib
+catboost_info/

@@ -1,0 +1,28 @@
+================================================================================
+MILESTONE 2 (MID-SEM EVALUATION) SUMMARY & KEY TAKEAWAYS
+================================================================================
+
+1. PROBLEM & DOMAIN:
+   - Forecasting hourly solar generation (Plant 1) over short-term (1h) and day-ahead (24h) horizons.
+   - Evaluated on a 7-day held-out test week (168 hours: June 11 to 17, 2020).
+
+2. KEY FINDINGS ACROSS MODELS (1-Hour Ahead):
+   - Persistence (t-1):      RMSE = 143.05 kW  (Skill: -7.9% vs baseline)
+   - Seasonal Naive (t-24):  RMSE = 132.62 kW  (Baseline benchmark)
+   - Holt-Winters:           RMSE =  95.32 kW  (Skill: +28.1% improvement)
+   - SARIMA:                 RMSE =  87.52 kW  (Skill: +34.0% improvement)
+   - SARIMAX (Weather):      RMSE =  15.89 kW  (Skill: +88.0% improvement)
+
+3. WHY WEATHER FEATURES ARE DECISIVE:
+   - Pure statistical models (Holt-Winters and SARIMA) capture the smooth daily curve,
+     reducing error by ~28% to 34% over Seasonal Naive.
+   - However, they cannot foresee sudden clouds.
+   - Adding exogenous weather inputs (SARIMAX with irradiation & module temperature)
+     reduces RMSE down to 15.89 kW (+88% Skill Score), proving that physical weather
+     measurements are the primary driver of solar generation.
+
+4. METRIC CAVEAT ON MAPE:
+   - Evaluator note: Standard MAPE is undefined / invalid on solar PV data because
+     nighttime actual power is 0 kW (division by zero).
+   - Therefore, RMSE and MAE across all hours and daylight hours are the standard metrics.
+================================================================================

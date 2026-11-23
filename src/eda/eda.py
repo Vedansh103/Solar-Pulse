@@ -4,12 +4,14 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from statsmodels.tsa.seasonal import STL
 
-OUT_DIR = Path("output/eda_plots")
+ROOT = Path(__file__).resolve().parents[2]
+DATA_DIR = ROOT / "data" / "processed"
+OUT_DIR = ROOT / "figures" / "eda"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 for plant in [1, 2]:
     # Load the master file: one row per hour, time is the index
-    df = pd.read_csv(f"output/master_hourly_plant{plant}.csv", index_col="timestamp", parse_dates=True)
+    df = pd.read_csv(DATA_DIR / f"master_hourly_plant{plant}.csv", index_col="timestamp", parse_dates=True)
     print(f"\n--- Plant {plant} ---")
     print(df[["ac_power_kw", "irradiation", "module_temperature", "ambient_temperature"]].describe().round(1))
     print("Missing generation hours:", df["ac_power_kw"].isna().sum())

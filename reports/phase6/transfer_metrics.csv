@@ -1,0 +1,8 @@
+model,training_source,testing_target,transfer_mode,rmse_all,mae_all,skill_score
+LightGBM,Plant 1,Plant 1 (In-Domain),In-Domain Benchmark,19.663,10.123,0.852
+LightGBM,Plant 2,Plant 2 (In-Domain),In-Domain Benchmark,59.559,27.672,0.447
+LightGBM,Plant 1,Plant 2,Zero-Shot Direct Transfer,109.314,45.176,-0.015
+LightGBM,Plant 1,Plant 2,Capacity-Scaled Transfer,85.661,50.528,0.204
+XGBoost,Plant 1,Plant 2,Capacity-Scaled Transfer,85.145,49.772,0.209
+SARIMAX,Plant 1,Plant 1 (In-Domain),In-Domain Benchmark,15.893,8.31,0.88
+SARIMAX,Plant 2,Plant 2 (In-Domain),In-Domain Benchmark,69.649,34.33,0.353

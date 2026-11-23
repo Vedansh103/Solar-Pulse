@@ -1,0 +1,8 @@
+# Approximate geographical coordinates for solar clear-sky modeling.
+# NOTE: The exact plant locations are not disclosed in the Kaggle source dataset ("two solar plants in India").
+# These coordinates correspond to the approximate geographic centroid of India (solar belt), used as an astronomical proxy.
+latitude: 20.59
+longitude: 78.96
+timezone: "Asia/Kolkata"
+approximate: true
+comment: "Location is approximate and unknown in the source data."

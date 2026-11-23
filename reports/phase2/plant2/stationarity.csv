@@ -1,0 +1,3 @@
+series,adf_stat,adf_p,kpss_stat,kpss_p,verdict
+raw,-7.6022,0.0,0.0583,0.1,stationary
+seasonal diff (lag 24),-11.0912,0.0,0.0478,0.1,stationary

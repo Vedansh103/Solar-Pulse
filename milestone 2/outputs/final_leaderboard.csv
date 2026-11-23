@@ -1,0 +1,10 @@
+Model,Horizon,RMSE_All (kW),MAE_All (kW),RMSE_Daylight (kW),MAE_Daylight (kW),Skill_Score,Uses_Weather
+SARIMAX (Weather),1h,15.893,8.31,21.581,,0.88,True
+SARIMA,1h,87.52,48.122,118.913,,0.34,False
+Holt-Winters,1h,97.512,52.022,132.473,,0.265,False
+Seasonal Naive (t-24),1h,132.616,67.87,180.189,125.298,0.0,False
+Persistence (t-1),1h,143.053,92.025,194.256,168.072,-0.079,False
+SARIMAX (Weather),24h,17.26,9.152,23.436,,0.87,True
+Holt-Winters,24h,107.653,54.782,146.271,,0.188,False
+SARIMA,24h,112.294,62.289,152.578,,0.153,False
+Seasonal Naive (t-24),24h,132.616,67.87,180.189,125.298,0.0,False

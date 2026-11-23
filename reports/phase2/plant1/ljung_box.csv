@@ -1,0 +1,7 @@
+model,lag,lb_stat,lb_p,white_noise
+Holt-Winters,24,56.864,0.0002,False
+Holt-Winters,48,80.9285,0.0021,False
+SARIMA,24,12.3217,0.976,True
+SARIMA,48,31.9485,0.9639,True
+"SARIMAX (irradiation, module temp)",24,24.7808,0.4178,True
+"SARIMAX (irradiation, module temp)",48,58.0229,0.1524,True
