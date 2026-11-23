@@ -12,11 +12,18 @@ from pathlib import Path
 import warnings
 import matplotlib.pyplot as plt
 import numpy as np
-import optuna
+try:
+    import optuna
+    optuna.logging.set_verbosity(optuna.logging.WARNING)
+except ImportError:
+    optuna = None
 import pandas as pd
 from sklearn.metrics import mean_absolute_error, root_mean_squared_error
 
-import catboost as cb
+try:
+    import catboost as cb
+except ImportError:
+    cb = None
 import lightgbm as lgb
 import xgboost as xgb
 
@@ -28,7 +35,8 @@ from src.evaluation.metrics import metrics_table, score
 from src.models.tree_features import FEATURE_SETS, get_train_val_test_data
 
 # Suppress Optuna and gradient-boosting logging noise
-optuna.logging.set_verbosity(optuna.logging.WARNING)
+if optuna is not None:
+    optuna.logging.set_verbosity(optuna.logging.WARNING)
 warnings.filterwarnings("ignore")
 
 ROOT = Path(__file__).resolve().parents[2]

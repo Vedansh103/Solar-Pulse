@@ -2,7 +2,7 @@
   "model_name": "Solar-Pulse Production Forecaster",
   "version": "1.0.0",
   "registry_status": "production_ready",
-  "created_at_utc": "2026-11-22T08:14:51.188761+00:00",
+  "created_at_utc": "2026-11-23T13:14:13.512952+00:00",
   "primary_champion_architecture": "LightGBM (Gradient Boosted Trees)",
   "probabilistic_companion_architecture": "Quantile LSTM (P10/P50/P90)",
   "target_variable": "ac_power_kw",

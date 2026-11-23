@@ -1,7 +1,7 @@
 model,horizon,feature_set,uses_measured_weather,rmse_all,mae_all,rmse_daylight,mae_daylight,skill_vs_seasonal_naive
-[Phase 4] LSTM,1h,1h_weather,True,27.101,15.082,36.824,27.844,0.796
-[Phase 4] Quantile LSTM (P50),1h,1h_weather,True,30.345,17.143,41.231,31.648,0.771
-[Phase 4] LSTM,1h,1h_no_weather,False,98.713,54.78,134.125,101.132,0.256
-[Phase 4] LSTM,24h,24h_weather,True,29.345,16.369,39.873,30.22,0.779
-[Phase 4] Quantile LSTM (P50),24h,24h_weather,True,37.297,21.431,50.676,39.565,0.719
-[Phase 4] LSTM,24h,24h_no_weather,False,112.932,61.09,153.445,112.782,0.148
+[Phase 4] LSTM,1h,1h_weather,True,29.814,17.497,40.509,32.302,0.775
+[Phase 4] Quantile LSTM (P50),1h,1h_weather,True,25.021,13.498,33.996,24.919,0.811
+[Phase 4] LSTM,1h,1h_no_weather,False,95.233,52.923,129.395,97.704,0.282
+[Phase 4] LSTM,24h,24h_weather,True,30.54,16.855,41.495,31.118,0.77
+[Phase 4] Quantile LSTM (P50),24h,24h_weather,True,38.509,21.391,52.324,39.491,0.71
+[Phase 4] LSTM,24h,24h_no_weather,False,110.385,60.833,149.984,112.307,0.168

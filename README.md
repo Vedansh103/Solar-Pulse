@@ -61,7 +61,8 @@ python src/evaluation/transfer_test.py      # P6: cross-plant transfer test -> r
 python src/evaluation/leaderboard.py        # P7: master leaderboard -> reports/phase7
 python src/evaluation/model_registry.py     # P7: model registry -> models/registry
 python src/llm/eval_safety.py               # P8-P9: LLM assistant evaluation & safety -> reports/phase9
-pytest -q                                  # Run automated test suite (41 tests)
+streamlit run app/dashboard.py              # P10-P11: Launch interactive operations dashboard
+pytest -q                                  # Run automated test suite (44 tests)
 ```
 
 ## Phases
@@ -78,7 +79,7 @@ pytest -q                                  # Run automated test suite (41 tests)
 | P7 | Leaderboard and model registry | Done |
 | P8 | LLM assistant with data tools (anomaly explanation & maintenance) | Done |
 | P9 | LLM evaluation and safety (grounding guard) | Done |
-| P10 | Dashboard, API and deployment | Planned |
+| P10 | Interactive Operations Dashboard & Copilot | Done |
 
 ## Caveats
 

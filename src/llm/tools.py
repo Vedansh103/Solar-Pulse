@@ -193,20 +193,20 @@ def diagnose_inverter_anomalies(plant: int = 2, date_str: str = None, inverter_i
     }
 
 
-def get_maintenance_recommendations(plant: int = 2) -> dict:
+def get_maintenance_recommendations(plant: int = 2, filter_type: str = None) -> dict:
     """Generates concrete, actionable plant maintenance recommendations based on inverter health.
     
-    Maps detected faults to engineering protocols:
-    - Soiling / gradual drift -> Water-wash schedule
-    - Tripping / zero output -> Electrical DC breaker / fuse inspection
-    - High module temp -> Inverter cooling and ventilation inspection
+    Args:
+        plant: 1 or 2
+        filter_type: 'cleaning' (panel soiling), 'electrical' (breaker/trips), or None (all)
     """
     health_path = REPORTS_DIR / f"phase5/plant{plant}/inverter_health_ranking.csv"
     if not health_path.exists():
         return {"status": "error", "message": f"Inverter health rankings for Plant {plant} not found."}
 
     df = pd.read_csv(health_path)
-    recommendations = []
+    electrical_recs = []
+    cleaning_recs = []
 
     for _, row in df.iterrows():
         inv = row["inverter_id"]
@@ -217,7 +217,7 @@ def get_maintenance_recommendations(plant: int = 2) -> dict:
 
         # Severe Trip / Disconnect (DC fuse, inverter breakdown)
         if disconnects >= 10:
-            recommendations.append({
+            electrical_recs.append({
                 "inverter_id": inv,
                 "priority": "HIGH (CRITICAL)",
                 "category": "Electrical Disconnect / Hardware Trip",
@@ -225,7 +225,7 @@ def get_maintenance_recommendations(plant: int = 2) -> dict:
                 "recommended_action": f"Dispatch electrical field crew immediately to inspect Inverter {inv}. Verify DC main contactor, inverter IGBT modules, and string combiner box fuses.",
             })
         elif disconnects > 0:
-            recommendations.append({
+            electrical_recs.append({
                 "inverter_id": inv,
                 "priority": "MEDIUM",
                 "category": "Intermittent Inverter Trip",
@@ -234,27 +234,43 @@ def get_maintenance_recommendations(plant: int = 2) -> dict:
             })
 
         # Panel Soiling / Dust accumulation
-        if soiling_hrs >= 20:
-            recommendations.append({
+        if soiling_hrs >= 15:
+            cleaning_recs.append({
                 "inverter_id": inv,
-                "priority": "MEDIUM",
-                "category": "Panel Soiling / Dust Accumulation",
+                "priority": "HIGH (CLEANING NEEDED)" if soiling_hrs >= 50 else "MEDIUM",
+                "category": "Panel Soiling / Dust Shading",
                 "evidence": f"{soiling_hrs} hours of steady underperformance (Peer Ratio < 0.80).",
                 "recommended_action": f"Schedule surface water-wash cleaning for solar array block connected to Inverter {inv} to recover an estimated ~15-25% output efficiency.",
             })
+
+    if filter_type == "cleaning" or filter_type == "soiling":
+        combined_orders = cleaning_recs[:6]
+        general_advice = (
+            f"Plant {plant} has {len(cleaning_recs)} solar inverter array blocks showing steady underperformance from dust and soiling (Peer Ratio < 0.80). Recommended for scheduled surface water-wash cleaning."
+        )
+    elif filter_type == "electrical" or filter_type == "trip":
+        combined_orders = electrical_recs[:6]
+        general_advice = (
+            f"Plant {plant} has {len(electrical_recs)} inverters with acute electrical disconnects and hardware trips, led by Inverter Quc1TzYxW2pYoWX. Immediate electrical field technician dispatch required."
+        )
+    else:
+        # Balanced portfolio: top electrical criticals + top panel soiling wash orders
+        combined_orders = electrical_recs[:3] + cleaning_recs[:3]
+        general_advice = (
+            "Plant 1 is operating with 99.8% inverter uptime. Routine bi-weekly inspection sufficient."
+            if plant == 1 else
+            "Plant 2 shows chronic hardware failures in Inverter Quc1TzYxW2pYoWX and multiple soiling blocks. Immediate physical intervention required."
+        )
 
     # Global summary
     total_plant_loss = float(df["estimated_lost_kwh"].sum())
 
     return {
         "plant": plant,
+        "filter_type": filter_type,
         "total_inverters_analyzed": len(df),
         "total_estimated_plant_loss_kwh": round(total_plant_loss, 1),
-        "actionable_work_orders": recommendations[:6],  # Top prioritized recommendations
-        "general_advice": (
-            "Plant 1 is operating with 99.8% inverter uptime. Routine bi-weekly inspection sufficient."
-            if plant == 1 else
-            "Plant 2 shows chronic hardware failures in Inverter Quc1TzYxW2pYoWX and multiple soiling blocks. Immediate physical intervention required."
-        ),
+        "actionable_work_orders": combined_orders,  # Top prioritized recommendations
+        "general_advice": general_advice,
     }
 

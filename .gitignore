@@ -25,12 +25,18 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.tmp.*
+.env
+.env.local
 
 # Project Specific Exclusions:
 # 1. PDF files (guidelines, project details, documentation PDFs)
 *.pdf
 # ...except the team's project reference docs
 !docs/*.pdf
+
+# Final project evaluation reports and build scripts (kept local, not pushed to git)
+reports/FINAL_PROJECT_REPORT_*
+reports/build_pdf_report.py
 
 # 2. Generated figures (rebuilt by the scripts)
 figures/**/*.png
